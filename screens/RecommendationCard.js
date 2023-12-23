@@ -1,18 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Image, Pressable } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MusicPlayer from './assets/Source/Screens/MusicPlayer';
-import SignUp from './assets/Source/Screens/SignUp';
-import StartScreen from './assets/Source/Screens/StartScreen';
-import Login from './HomeScreen';
+import Icon from 'react-native-vector-icons/Ionicons'
 
-const MusicCard = () => {
+
+const RecommendationCard = () => {
 
     return (
-        <View style={styles.container}>
+        <View style={myStyles.container}>
             <Pressable>
                 <View>
-                    <Image source={require("")} alt='img here' />
+                    <Image source={require("./Havana.jpg")}  />
                 </View>
                 <View>
 
@@ -26,7 +23,7 @@ const MusicCard = () => {
                             </View>
                         </View>
                         <View>
-                            <Ionicons name='play-back-circle-outline' size={25} color="Yellow" />
+                            <Icon name='play-back-circle-outline' size={25} color="Yellow" />
                         </View>
 
                     </View>
@@ -34,22 +31,22 @@ const MusicCard = () => {
                     <View>
 
                         <View>
-                            <Ionicons name="heart" size={35} color='#A6A6A6' />
+                            <Icon name="heart" size={35} color='#A6A6A6' />
                             <Text>No. of likes</Text>
                         </View>
 
                         <View>
-                            <Ionicons name="share-social" size={35} color='#A6A6A6' />
+                            <Icon name="share-social" size={35} color='#A6A6A6' />
                             <Text>No. of shares</Text>
                         </View>
 
                         <View>
-                            <Ionicons name="file-tray" size={35} color='#A6A6A6' />
+                            <Icon name="file-tray" size={35} color='#A6A6A6' />
                             <Text>NO. of comments</Text>
                         </View>
 
                         <View>
-                            <Ionicons name="download-outline" size={35} color='#A6A6A6' />
+                            <Icon name="download-outline" size={35} color='#A6A6A6' />
                             <Text>No. of downloads</Text>
                         </View>
 
@@ -63,11 +60,14 @@ const MusicCard = () => {
     );
 };
 
-export default MusicCard;
+export default RecommendationCard;
 
-const styles = StyleSheet.create({
+const myStyles = StyleSheet.create({
 
     container: {
         flex: 1,
     },
+    style:{
+        color:"white"
+    }
 });
