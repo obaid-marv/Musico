@@ -1,9 +1,9 @@
 import React from 'react';
+
 import { View , StyleSheet, Pressable, Image, Button,Text } from 'react-native';
-// import MusicPlayer from './assets/Source/Screens/MusicPlayer';
-// import SignUp from './assets/Source/Screens/SignUp';
-// import StartScreen from './assets/Source/Screens/StartScreen';
-import Icon from 'react-native-vector-icons/Ionicons'
+
+
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const Settings = () => {
 
@@ -29,7 +29,8 @@ const Settings = () => {
     <Text>Data saver</Text>
     <View>
         <Text>Audio Quality</Text>
-        
+ 
+
     </View>
 </View>
         </View>
