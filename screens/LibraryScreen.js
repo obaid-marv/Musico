@@ -1,17 +1,18 @@
 import React from 'react';
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, Image } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import {getAuth}  from 'firebase/auth';
 
-const Login = ({navigation}) => {
+import Icon from 'react-native-vector-icons/Ionicons'
+// import {getAuth}  from 'firebase/auth';
 
-    const handleSignOut = () =>{
+const LibraryScreen = ({navigation}) => {
 
-        const myauth = getAuth();
-        myauth.signOut();
+    // const handleSignOut = () =>{
 
-        navigation.navigate("welcome");
-    }
+    //     const myauth = getAuth();
+    //     myauth.signOut();
+
+    //     navigation.navigate("welcome");
+    // }
 
     return(
         <View style={styles.container}>
@@ -21,37 +22,39 @@ const Login = ({navigation}) => {
             <View style={styles.heading}>
                 <Pressable style={{flex:1, left:18}}>
 
-                <Ionicons name='arrow-back' size={35} color= "#A6A6A6" />
+                <Icon name='arrow-back' size={35} color= "#A6A6A6" />
                 </Pressable>
             <Text style = {[styles.title, {flex:2, display:"flex" }]}>Library</Text>
             </View>
  
 <View style={styles.upperCardsClass}>
 
-            <Pressable onPress={handleSignOut}>
+            <TouchableOpacity>
                 <View style = {[styles.upperCard]}>
-                    <Ionicons name='mic-circle' size={35} color="yellow" />
+                    <Icon name='mic-circle' size={35} color="#FFA500" />
                     <Text style={[styles.colorWhite,  styles.smallFonts] }>Downloads</Text>
                 </View>
-            </Pressable>
+            </TouchableOpacity>
+
+            
             <Pressable>
 
                 <View style = {[styles.upperCard]}>
-                    <Ionicons name='disc' size={35} color="yellow" />
+                    <Icon name='disc' size={35} color="#FFA500" />
                     <Text style={[styles.colorWhite,  styles.smallFonts] }>Playlists</Text>
                 </View>
             </Pressable>
             <Pressable>
 
                 <View style = {[styles.upperCard]}>
-                    <Ionicons name='musical-notes' size={35} color="yellow" />
+                    <Icon name='musical-notes' size={35} color="#FFA500" />
                     <Text style={[styles.colorWhite,  styles.smallFonts] }>Favourites</Text>
                 </View>
             </Pressable>
             <Pressable>
 
                 <View style = {[styles.upperCard]}>
-                    <Ionicons name='musical-note' size={35} color="yellow" />
+                    <Icon name='musical-note' size={35} color="#FFA500" />
                     <Text style={[styles.colorWhite,  styles.smallFonts] }>Local files</Text>
                 </View>
             </Pressable>
@@ -65,10 +68,10 @@ const Login = ({navigation}) => {
 
                     <View style={styles.libraryCard}>
                         <View style = {styles.imageDiv}>
-                            <Image style={{width:75, height:75, borderRadius:15}} source={require("../covers/Havana.jpg")}/>
+                            <Image style={{width:75, height:75, borderRadius:15}} source={require("./Havana.jpg")}/>
                         </View>
                         <View style={styles.data}>
-                            <Text style = {{color:"yellow"}}>Album name</Text>
+                            <Text style = {{color:"#FFA500"}}>Album name</Text>
                             <Text style = {{color:"#aaa"}}>No. of Songs</Text>
                         </View>
                     </View>
@@ -81,13 +84,13 @@ const Login = ({navigation}) => {
     );
 };
 
-export default Login;
+export default LibraryScreen;
 
 const styles = StyleSheet.create({
     nextButton:{
         display:"flex",
         flexDirection:"row",
-        backgroundColor:"yellow",
+        backgroundColor:"#FFA500",
         alignItems:"center",
         fontWeight:"bold",
         marginTop: 45,
@@ -97,6 +100,7 @@ const styles = StyleSheet.create({
     heading:{
         display:"flex",
         flexDirection:"row",
+        backgroundColor:"pink"
     },
     libraryCard:{
         width:350,
@@ -129,12 +133,14 @@ const styles = StyleSheet.create({
         margin:6,
         alignItems:"center",
         paddingTop:9,
-        backgroundColor:"black",
+        backgroundColor:"#001f3f",
         borderRadius:12,
-        elevation:55,
-        shadowRadius:8,
-        shadowColor:"yellow",
-        shadowOffset:{width:6, height:4},
+        elevation:10,
+        borderWidth:1,
+        borderColor:"#ffa500",
+        shadowRadius:20,
+        shadowColor:"#FFA500",
+        shadowOffset:{width:100, height:100},
         shadowOpacity:1,
         top:25,
     },
@@ -143,7 +149,9 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:"center",
         justifyContent:"center",
-        backgroundColor:"black",
+        backgroundColor:"#001f3f",
+
+        
     },
     content:{
         top:130,
@@ -168,7 +176,7 @@ const styles = StyleSheet.create({
         fontSize:16,
     },
     colorWhite:{
-        color:"yellow"
+        color:"#FFA500"
     },
     smallFonts:{
         fontSize:12,

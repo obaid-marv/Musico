@@ -11,6 +11,13 @@ import SignUp from './screens/SignUp.js';
 import HomeScreen from './screens/HomeScreen.js';
 import Login from './screens/LogIn.js';
 import Settings from './screens/Settings.js';
+
 import LibraryScreen from './screens/LibraryScreen.js';
 
 AppRegistry.registerComponent(appName, () => StartScreen);
+import MusicPlayer from './screens/MusicPlayer.js';
+import LibraryScreen from './screens/LibraryScreen.js';
+import HomeScreen from './screens/HomeScreen.js';
+
+AppRegistry.registerComponent(appName, () => LibraryScreen);
+

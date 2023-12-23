@@ -1,6 +1,6 @@
 import React from 'react';
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons'
 import { Link } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 
@@ -15,7 +15,7 @@ const HomeScreen = () => {
             </View>
 
             <View style= {styles.searchBar}>
-                <Ionicons name="arrow-back-sharp" size={35} color='#000'/>
+                <Icon name="arrow-back-sharp" size={35} color='#000'/>
                 <TextInput placeholder='Search for artist, songs and genre' style = {styles.searchBarInput} />
             </View>
                 
@@ -25,19 +25,19 @@ const HomeScreen = () => {
 
             <Pressable>
                 <View>
-                    <Ionicons name='mic-circle' size={35} color="yellow" />
+                    <Icon name='mic-circle' size={35} color="yellow" />
                     <Text>Artists</Text>
                 </View>
                 <View>
-                    <Ionicons name='disc' size={35} color="yellow" />
+                    <Icon name='disc' size={35} color="yellow" />
                     <Text>Albums</Text>
                 </View>
                 <View>
-                    <Ionicons name='musical-notes' size={35} color="yellow" />
+                    <Icon name='musical-notes' size={35} color="yellow" />
                     <Text>Playlists</Text>
                 </View>
                 <View>
-                    <Ionicons name='musical-note' size={35} color="yellow" />
+                    <Icon name='musical-note' size={35} color="yellow" />
                     <Text>Genre</Text>
                 </View>
             </Pressable>
@@ -47,7 +47,7 @@ const HomeScreen = () => {
                 <Pressable>
                     <View>
                         <Text>See more</Text>
-                        <Ionicons name='arrow-forward-outline' size={35} color="Yellow"/>
+                        <Icon name='arrow-forward-outline' size={35} color="Yellow"/>
                     </View>
                 </Pressable>
 
@@ -59,7 +59,7 @@ const HomeScreen = () => {
                 <Pressable>
                     <View>
                         <Text>See more</Text>
-                        <Ionicons name='arrow-forward-outline' size={35} color="Yellow"/>
+                        <Icon name='arrow-forward-outline' size={35} color="Yellow"/>
                     </View>
                 </Pressable>
 
