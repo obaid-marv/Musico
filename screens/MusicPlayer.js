@@ -1,62 +1,62 @@
 import React, { useEffect, useState} from 'react';
 import { StyleSheet,View, Text,SafeAreaView, TouchableOpacity, Image, Dimensions } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Ionicons'
+
 import Slider from '@react-native-community/slider';
-import AntDesign from '@expo/vector-icons/AntDesign';
-const design = require("../../design");
-const data = require("./Data");
+
+// const design = require("../../design");
+// const data = require("./Data");
 
 
 const {width, height} = Dimensions.get('window');
 
 const MusicPlayer = ({navigation}) => {
 
-    const arr = data.default;
+    // const arr = data.default;
 
     const [iconName, setIconName] = useState("heart-outline");
     const [icon1Name, setIcon1Name] = useState("repeat");
     const [icon2Name, setIcon2Name] = useState("pause");
-    const [currentSong, setCurrentSong] = useState(arr[1]);
+    const [currentSong, setCurrentSong] = useState(0);
     const [currentImg, setCurrentImg] = useState(null);
 
         const id = currentSong.id;
         
-        function moveForward(){
+        // function moveForward(){
 
             
-            if(currentSong.id == arr.length-1){
-                setCurrentSong(arr[0]);
-                setCurrentImg(arr[0].image);
-            }
-            if(currentSong.id < arr.length-1){
-                setCurrentSong(arr[id+1]);
-                setCurrentImg(arr[id+1].image);
-            }
-        }
+        //     if(currentSong.id == arr.length-1){
+        //         setCurrentSong(arr[0]);
+        //         setCurrentImg(arr[0].image);
+        //     }
+        //     if(currentSong.id < arr.length-1){
+        //         setCurrentSong(arr[id+1]);
+        //         setCurrentImg(arr[id+1].image);
+        //     }
+        // }
         
-        function moveBackwoard(){
-            if(currentSong.id == 0){
-            }else{
-                setCurrentSong(arr[currentSong.id-1]);
-                setCurrentImg(arr[currentSong.id-1].image);
-        }
-    }
+        // function moveBackwoard(){
+        //     if(currentSong.id == 0){
+        //     }else{
+        //         setCurrentSong(arr[currentSong.id-1]);
+        //         setCurrentImg(arr[currentSong.id-1].image);
+        //     }
+        // }
 
 
 
     return(
-        <SafeAreaView style={design.default.container}>
+        <SafeAreaView style={styles.newcontainer}>
             <View style={styles.mainContainer}>
                 <View style={styles.upperContainer}>
-                    <TouchableOpacity onPress={()=> navigation.navigate("libraryScreen")}>
-                    <Ionicons name="arrow-back-sharp" size={35} color='#A6A6A6'/>
+                    <TouchableOpacity onPress={()=> {}}>
+                    <Icon name="arrow-back-sharp" size={35} color='#ffff'/>
                     </TouchableOpacity>
                     <Text style={styles.title}>Now Playing</Text>
-                    <Ionicons name="arrow-back-sharp" size={35} color='#000'/>
+                    <Icon name="arrow-back-sharp" size={35} color='#001f3f'/>
                 </View>
                 <View style={styles.coverWrapper}>
-                    <Image  style={styles.cover} source={currentImg} />
+                    <Image  style={styles.cover} source={require("./Havana.jpg")} />
                 </View>
                 <View>
                     <Text style={styles.title} >{currentSong.Name}</Text>
@@ -72,7 +72,7 @@ const MusicPlayer = ({navigation}) => {
                             setIcon1Name("repeat");
                         }
                     }}>
-                    <MaterialIcons name={icon1Name} size={20} color='#C5AA1E'/>
+                    <Icon name={icon1Name} size={20} color='#FFA500'/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
                         if(iconName=="heart-outline"){
@@ -82,7 +82,7 @@ const MusicPlayer = ({navigation}) => {
                             setIconName("heart-outline");
                         }
                     }}>
-                    <Ionicons name={iconName} size={20} color='#C5AA1E'/>
+                    <Icon name={iconName} size={20} color='#FFA500'/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.timerContainer}>
@@ -96,8 +96,8 @@ const MusicPlayer = ({navigation}) => {
                     value={10}
                     minimumValue={0}
                     maximumValue={100}
-                    minimumTrackTintColor='#C5AA1E'
-                    thumbTintColor='#C5AA1E'
+                    minimumTrackTintColor='#FFA500'
+                    thumbTintColor='#FFA500'
                     maximumTrackTintColor='white'
                     onSlidingComplete={()=>{}}
                     />
@@ -109,8 +109,8 @@ const MusicPlayer = ({navigation}) => {
             </View>
             <View style={styles.controlsContainer}>
                 <View style={styles.control}>
-                    <TouchableOpacity onPress={moveBackwoard}>
-                        <AntDesign name="stepbackward" size={30} color='#C5AA1E'></AntDesign>
+                    <TouchableOpacity onPress={()=>{}}>
+                        <Icon name="stepbackward" size={30} color='#FFA500'/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=> {
                         if(icon2Name=="pause"){
@@ -120,10 +120,10 @@ const MusicPlayer = ({navigation}) => {
                             setIcon2Name("pause");
                         }
                     }}>
-                        <Ionicons name={icon2Name} size={50} color='#C5AA1E'></Ionicons>
+                        <Icon name={icon2Name} size={50} color='#FFA500'></Icon>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={moveForward}>
-                        <AntDesign name="stepforward" size={30} color='#C5AA1E'></AntDesign>
+                    <TouchableOpacity onPress={()=>{}}>
+                        <Icon name="stepforward" size={30} color='#FFA500'/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -144,6 +144,10 @@ const styles = StyleSheet.create({
         alignItems:"flex-start",
         justifyContent:"space-between",
         width:'80%',
+    },
+    newcontainer:{
+        flex:1,
+        backgroundColor:'#001f3f'
     },
 
     mainContainer:{
@@ -185,13 +189,13 @@ const styles = StyleSheet.create({
         borderRadius:10,
     },
     title:{
-        color:'#C5AA1E',
+        color:'#FFA500',
         textAlign: 'center',
         fontSize: 19,
         fontWeight:'600',
     },
     artist:{
-        color:'#C5AA1E',
+        color:'#FFA500',
         textAlign: 'center',
         fontSize: 15,
         fontWeight:'60',
@@ -211,7 +215,7 @@ const styles = StyleSheet.create({
         width:280
     },
     timerText:{
-        color:'#C5AA1E',
+        color:'#FFA500',
     }
 
 });

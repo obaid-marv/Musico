@@ -1,5 +1,5 @@
 import React from 'react';
-import { View , StyleSheet, Pressable, Image, Button } from 'react-native';
+import { View , StyleSheet, Pressable, Image, Button,Text } from 'react-native';
 // import MusicPlayer from './assets/Source/Screens/MusicPlayer';
 // import SignUp from './assets/Source/Screens/SignUp';
 // import StartScreen from './assets/Source/Screens/StartScreen';
@@ -12,24 +12,24 @@ const Settings = () => {
 <View>
     <Pressable>
 
-<Ionicons name="arrow-back-sharp" size={25} color='#000'/>
+<Icon name="arrow-back-sharp" size={25} color='#000'/>
     </Pressable>
 <Text>Settings</Text>
 </View>
 
 <View>
-    <Image />
+    
     <View>
         <Text>Muneeb</Text>
         <Text>View Profile</Text>
     </View>
-    <Ionicons name='arrow-forward-circle-outline' size={25} color= "yellow"/>
+    <Icon name='arrow-forward-circle-outline' size={25} color= "yellow"/>
 </View>
 <View>
     <Text>Data saver</Text>
     <View>
         <Text>Audio Quality</Text>
-        <Button />
+        
     </View>
 </View>
         </View>
