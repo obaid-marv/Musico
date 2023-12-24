@@ -5,17 +5,41 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Feather from 'react-native-vector-icons/Feather'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import React from 'react'
+import Toast from 'react-native-simple-toast';
 import MusicCard from "../Components/MusicCard"
 
 
-const AccountScreen =()=> {
+const AccountScreen =({navigation})=> {
     const [name, setName] = React.useState("Zaki")
+    const [isEditingName, setIsEditingName] = React.useState(false);
+    const [editedName, setEditedName] = React.useState(name);
+
+    const handleEditName = () => {
+        setIsEditingName(true);
+    };
+
+    const handleSaveName = () => {
+        if(editedName===""){
+            setName(name);
+            setIsEditingName(false);
+            Toast.show('Name field cannot be empty', Toast.SHORT);
+        }
+        else{     
+            setName(editedName);
+            setIsEditingName(false);
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setEditedName(name);
+        setIsEditingName(false);
+    };
 
     return(
         <View style={myStyles.container}>
             <View style={myStyles.header}>
 
-            <TouchableOpacity style={myStyles.backButton}>
+            <TouchableOpacity style={myStyles.backButton} >
                 <Icon name='arrow-back' size={35} color= "#A6A6A6" />
             </TouchableOpacity>
 
@@ -25,21 +49,41 @@ const AccountScreen =()=> {
             <Image style={myStyles.imgStyle} source={require("../Components/Profile.png")} />
 
             <View style={myStyles.nameView}>
-                <Text style={myStyles.nameText}>{name}</Text>
-                <TouchableOpacity>
-                <FontAwesome5 style={{marginLeft:10}} name="edit" size={20} color={"#FFA500"}/>
+                {isEditingName ? (
+                <>
+                <TextInput
+                style={myStyles.editNameInput}
+                value={editedName}
+                onChangeText={(text) => setEditedName(text)}
+                placeholder="Enter name"
+                placeholderTextColor="#A6A6A6"
+                />
+                <TouchableOpacity onPress={handleSaveName}>
+                <FontAwesome5 style={myStyles.editIcon} name="check" size={20} color={'#FFA500'} />
                 </TouchableOpacity>
-            </View>
+                <TouchableOpacity onPress={handleCancelEdit}>
+                <FontAwesome5 style={myStyles.editIcon} name="times" size={20} color={'#FFA500'} />
+                </TouchableOpacity>
+                </>
+            ) : (
+                <>
+                <Text style={myStyles.nameText}>{name}</Text>
+                <TouchableOpacity onPress={handleEditName}>
+                <FontAwesome5 style={myStyles.editIcon} name="edit" size={20} color={'#FFA500'} />
+                </TouchableOpacity>
+                </>
+            )}
+        </View>
 
             <View style={myStyles.lowerView}>
 
-                <Pressable style={myStyles.pressableView}>
+                <TouchableOpacity style={myStyles.pressableView} onPress={()=>navigation.navigate("Edit")}>
                     <MaterialCommunityIcons style={myStyles.leftIcon} name="pencil" size={23} color={"black"}/>
                     <Text style={myStyles.lowerTexts}>Edit Profile</Text>
                     <View style={myStyles.rightIcon}>
                     <Icon  name="chevron-forward" size={23} color={"black"}/>
                     </View>
-                </Pressable>
+                </TouchableOpacity>
 
                 <Pressable style={myStyles.pressableView}>
                     <Feather style={myStyles.leftIcon} name="globe" size={23} color={"black"}/>
@@ -65,13 +109,13 @@ const AccountScreen =()=> {
                     </View>
                 </Pressable>
 
-                <Pressable style={myStyles.pressableView}>
+                <TouchableOpacity style={myStyles.pressableView} onPress={()=>navigation.navigate("Settings")}>
                     <Icon style={myStyles.leftIcon} name="settings-outline" size={23} color={"black"}/>
                     <Text style={myStyles.lowerTexts}>Settings</Text>
                     <View style={myStyles.rightIcon}>
                     <Icon  name="chevron-forward" size={23} color={"black"}/>
                     </View>
-                </Pressable>
+                </TouchableOpacity>
             </View>
 
             <MusicCard/>
@@ -114,7 +158,7 @@ const myStyles = StyleSheet.create({
         flexDirection:"row",
         paddingTop:25,
         alignItem:"center",
-        marginVertical:4
+        marginVertical:4,
     },
     backButton:{
         marginLeft:18 
@@ -138,6 +182,19 @@ const myStyles = StyleSheet.create({
         fontSize:18,
         width:"25%"
     },
+    editNameInput: {
+        color: '#FFA500',
+        fontSize: 20,
+        fontWeight: 'bold',
+        borderBottomWidth: 1,
+        borderBottomColor: '#FFA500',
+        width: '50%',
+        textAlign: 'center',
+        marginRight: 5,
+      },
+      editIcon: {
+        marginLeft: 10,
+      },
     imgStyle:{
         height:120,
         width:120,

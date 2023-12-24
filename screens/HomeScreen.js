@@ -1,6 +1,8 @@
 import React from 'react';
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, FlatList,Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import { Link } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 import MusicCard from '../Components/MusicCard';
@@ -41,30 +43,30 @@ const HomeScreen = ({navigation})=>{
 
                 <TouchableOpacity>
                     <View style = {[myStyles.upperCard]}>
-                        <Icon name='mic-circle' size={35} color="#FFA500" />
-                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Downloads</Text>
+                        <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
+                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Artists</Text>
                     </View>
                 </TouchableOpacity>
 
-
+                
                 <TouchableOpacity>
                     <View style = {[myStyles.upperCard]}>
-                        <Icon name='disc' size={35} color="#FFA500" />
+                        <Icon name='disc-outline' size={35} color="#FFA500" />
+                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Albums</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+
+                    <View style = {[myStyles.upperCard]}>
+                    <SimpleLineIcons name='playlist' size={35} color="#FFA500" />   
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Playlists</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
 
                     <View style = {[myStyles.upperCard]}>
-                        <Icon name='musical-notes' size={35} color="#FFA500" />
-                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Favourites</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-
-                    <View style = {[myStyles.upperCard]}>
-                        <Icon name='musical-note' size={35} color="#FFA500" />
-                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Local files</Text>
+                        <Icon name='musical-notes-outline' size={35} color="#FFA500" />
+                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Genre</Text>
                     </View>
                 </TouchableOpacity>
 
