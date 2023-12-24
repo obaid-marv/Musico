@@ -26,6 +26,7 @@ const RecommendationScreen = ({navigation})=>{
                 <FlatList
                     style={myStyles.FLView}
                     data={list}          
+                    showsVerticalScrollIndicator={false}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item})=>(
                         

@@ -59,7 +59,7 @@ const HomeScreen = ({navigation})=>{
 
                     <View style = {[myStyles.upperCard]}>
                         <SimpleLineIcons name='playlist' size={35} color="#FFA500" />
-                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Favourites</Text>
+                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Playlists</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
