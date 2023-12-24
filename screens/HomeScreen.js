@@ -1,12 +1,12 @@
 import React from 'react';
-import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, FlatList,Image } from 'react-native';
+import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, FlatList,Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Link } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 
 const HomeScreen = ({navigation})=>{
 
-
+    const screenWidth = Dimensions.get('window').width;
     const data = [
         { key: '1', title: './Havana.jpg' },
         { key: '2', title: './Havana.jpg' },
@@ -16,11 +16,9 @@ const HomeScreen = ({navigation})=>{
       ];
 
       const renderItem = ({ item }) => (
-        <TouchableOpacity>
-          <View style={[myStyles.upperCard]}>
-            <Image source={require("./Havana.jpg")}/>
-            <Text style={myStyles.fltext}>Havana</Text>
-          </View>
+        <TouchableOpacity style={myStyles.hotTouch}>
+            <Image style={[myStyles.himg, { width: screenWidth / 3 }]} source={require('./Havana.jpg')}/>
+            <Text style={myStyles.imgText}>Havana</Text>
         </TouchableOpacity>
       );
     return(
@@ -82,7 +80,14 @@ const HomeScreen = ({navigation})=>{
                 keyExtractor={item => item.key}
                 />
                 </View>
-                <View style={myStyles.newReleases}>
+                <Text style={myStyles.bold}>New Releases</Text>
+                <View style={myStyles.hotList}>
+                <FlatList
+                data={data}
+                horizontal
+                renderItem={renderItem}
+                keyExtractor={item => item.key}
+                />    
 
                     
                 </View>
@@ -111,9 +116,8 @@ const myStyles = StyleSheet.create({
         backgroundColor:"#001f3f",  
     },
     content:{
-        top:130,
+        top:30,
         flex:1,
-        alignItems:"center",
         justifyContent:"flex-start",
         width:"100%"
     },
@@ -200,10 +204,30 @@ const myStyles = StyleSheet.create({
     bold:{
         fontSize:18,
         fontWeight:"bold",
-        color:"white"
+        color:"white",
+        textAlign:"left",
+        marginLeft:10
     },
     hotList:{
-        backgroundColor:"pink",
-        height:100,
-    }
+        // backgroundColor:"pink",
+        height:150,
+        marginTop:10,
+        
+    },
+    himg:{
+        height:110,
+        borderRadius:10
+
+    },
+    imgText:{
+        color:"#ffa500",
+        fontWeight:"bold",
+        marginLeft:5,
+    },
+    hotTouch:{
+        marginLeft:5,
+        height:70,
+        // backgroundColor:"purple"
+    },
+
 })

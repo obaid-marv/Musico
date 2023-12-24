@@ -43,7 +43,7 @@ const Login = ({navigation}) => {
                 <Text style={styles.pTextPass} >Forgot password?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{}}>
+            <TouchableOpacity onPress={()=>{navigation.navigate("Main")}}>
                 <Text style={styles.btn}>Log in</Text>
             </TouchableOpacity>
 
@@ -51,7 +51,7 @@ const Login = ({navigation}) => {
 
 <View style={styles.links}>
         <Text style={styles.pText} >Don't have an account?</Text>
-        <Pressable onPress={()=>{}}>
+        <Pressable onPress={()=>{navigation.navigate("Signup")}}>
 
         <Text style={styles.loginBtn}>Sign Up</Text>
         </Pressable>

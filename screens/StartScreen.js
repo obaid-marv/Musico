@@ -11,7 +11,7 @@ const StartScreen = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.title}>Create your experience!</Text>
         <Text style={styles.pText}>Stream your favorite songs ON THE GO...</Text>
-        <TouchableOpacity onPress={() => {navigation.navigate("Main")}}>
+        <TouchableOpacity onPress={() => {navigation.navigate("Login")}}>
           <View style={styles.nextButton}>
             <Text style={{ color: 'black' }}>LET'S GO</Text>
             <Icon name="arrow-forward-circle" size={30} color="black" />

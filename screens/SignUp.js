@@ -75,7 +75,7 @@ const SignUp = ({navigation}) => {
 
             <View style={styles.links}>
                     <Text style={styles.pText} >Already have an account?</Text>
-                    <Pressable onPress={() =>{ToastAndroid.show("i am pressed")}}>
+                    <Pressable onPress={() =>{navigation.navigate("Login")}}>
                         <Text style={styles.loginBtn}>Login</Text>
                     </Pressable>
             </View>  
