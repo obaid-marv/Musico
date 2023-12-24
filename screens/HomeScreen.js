@@ -26,7 +26,7 @@ const HomeScreen = ({navigation})=>{
         <View style={myStyles.container}>
             <View style={myStyles.header}>
                     <Text style={myStyles.text1}>Music</Text>
-                    <TouchableOpacity onPress={()=>navigation.navigate("Popular")}>
+                    <TouchableOpacity onPress={()=>navigation.navigate("Recommended")}>
                     <Text style={myStyles.text2}>Recommended</Text>
                     </TouchableOpacity>
             </View>

@@ -14,7 +14,6 @@ import Settings from './screens/Settings.js';
 
 import LibraryScreen from './screens/LibraryScreen.js';
 import RecommendationScreen from './screens/RecommendationScreen.js';
-import RecommendationCard from './Components/RecommendationCard.js';
 import MusicCard from './Components/MusicCard.js';
 
 

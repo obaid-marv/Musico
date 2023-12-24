@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import {Text,Image,StyleSheet,View} from 'react-native'
 
-const LaunchScreen = ()=>{
+const LaunchScreen = ({navigation})=>{
+    useEffect(()=>{
+        setTimeout(()=>navigation.navigate("StartScreen"),5000)
+    },[]);
     return(
         <View style={myStyles.container}>
 
