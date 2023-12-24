@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image, Pressable, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather'
 
 const MusicCard = () => {
   return (
@@ -14,17 +15,17 @@ const MusicCard = () => {
           </View>
         </View>
         <View style={styles.actionView}>
-          <TouchableOpacity>
-            <Icon name="heart" size={25} color="#ffa500" />
+          <TouchableOpacity style={{marginTop:4, marginRight:8}}>
+            <Icon name="heart-outline" size={18} color="#ffa500" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Icon name="play-skip-back-circle-outline" size={25} color="#ffa500" />
+            <Feather name="skip-back" size={25} color="#ffa500" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Icon name="play" size={25} color="#ffa500" />
+            <Icon name="pause-outline" size={25} color="#ffa500" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Icon name="play-skip-forward-circle-outline" size={25} color="#ffa500" />
+            <Feather name="skip-forward" size={25} color="#ffa500" />
           </TouchableOpacity>
         </View>
       </Pressable>
@@ -36,7 +37,6 @@ export default MusicCard;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     display: "flex",
     flexDirection: "row",
     paddingHorizontal: 10,

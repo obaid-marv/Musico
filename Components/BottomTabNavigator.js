@@ -7,6 +7,7 @@ import RecommendationScreen from '../screens/RecommendationScreen';
 import Settings from '../screens/Settings';
 import Login from '../screens/LogIn';
 import StartScreen from '../screens/StartScreen';
+import PopularScreen from '../screens/PopularScreen';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import PopularScreen from '../screens/PopularScreen';
 

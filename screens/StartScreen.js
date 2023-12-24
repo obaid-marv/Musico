@@ -13,8 +13,8 @@ const StartScreen = ({ navigation }) => {
         <Text style={styles.pText}>Stream your favorite songs ON THE GO...</Text>
         <TouchableOpacity onPress={() => {navigation.navigate("Login")}}>
           <View style={styles.nextButton}>
-            <Text style={{ color: 'black' }}>LET'S GO</Text>
-            <Icon name="arrow-forward-circle" size={30} color="black" />
+            <Text style={styles.letsgoText}>LET'S GO</Text>
+            <Icon style={{marginLeft:5}} name="arrow-forward-circle" size={30} color="black" />
           </View>
         </TouchableOpacity>
       </View>
@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
     color: 'white',
     margin: 8,
     fontSize: 16,
+  },
+  letsgoText:{ 
+    color: 'black', 
+    fontWeight:"bold",
+    marginLeft:5,
+    fontSize:16
   },
   backgroundImage: {
     flex: 1,

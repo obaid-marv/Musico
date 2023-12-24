@@ -5,7 +5,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import StartScreen from './screens/StartScreen';
 import Login from './screens/LogIn';
 import SignUp from './screens/SignUp';
+<<<<<<< HEAD
 import LaunchScreen from './screens/LaunchScreen';
+=======
+>>>>>>> 75797b5d40391d80dcf3cecdbd174bd2e7a69e9a
 import RecommendationScreen from './screens/RecommendationScreen';
 
 const Stack = createStackNavigator();
@@ -18,6 +21,7 @@ const App = () => {
         }}>
         <Stack.Screen name="LaunchScreen" component={LaunchScreen} />  
         <Stack.Screen name="StartScreen" component={StartScreen} />
+        <Stack.Screen name="RecommendationScreen" component={RecommendationScreen}/>
         <Stack.Screen name="Main" component={BottomTabNavigator} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={SignUp} />

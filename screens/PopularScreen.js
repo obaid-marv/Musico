@@ -2,9 +2,10 @@ import {Text, Image, View, StyleSheet, FlatList, TouchableOpacity} from 'react-n
 import Icon from 'react-native-vector-icons/Ionicons'
 import Toast from 'react-native-simple-toast';
 import { list } from './MusicList';
+import MusicCard from '../Components/MusicCard';
 
 
-const PopularScreen = ()=>{
+const PopularScreen = (navigation)=>{
 
     const showMsg = ()=>{
         Toast.show('Back Button Pressed', Toast.SHORT);
@@ -25,7 +26,9 @@ const PopularScreen = ()=>{
             </View>
 
             <FlatList
+            style={myStyles.FLView}
             horizontal={true}
+            showsHorizontalScrollIndicator={false}
             data={list}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({item})=>(
@@ -42,6 +45,8 @@ const PopularScreen = ()=>{
             </View>
 
             <FlatList
+            style={myStyles.FLView}
+            showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={list}
             keyExtractor={(item) => item.id.toString()}
@@ -53,8 +58,8 @@ const PopularScreen = ()=>{
                 </View>
             )}
             />
-
-            <View style={{flex:1}}></View>
+            {/* <MusicCard/> */}
+            <View style={{flex:1}}><MusicCard/></View>
         </View>
     )
 }
@@ -76,14 +81,17 @@ const myStyles = StyleSheet.create({
         justifyContent:"flex-start",
         alignItems:"center",
         width:"100%",
-        marginBottom:20
+        marginBottom:15
     }, 
+    FLView:{
+        marginBottom:-25
+    },
     backButton:{
         marginLeft:18 
     },
     imgStyle:{
-        height:150,
-        width:150,
+        height:130,
+        width:140,
         borderRadius:15,
         marginHorizontal:12,
         marginBottom:8
@@ -91,7 +99,7 @@ const myStyles = StyleSheet.create({
     textView:{
         flex:1,
         alignItems:"flex-start",
-        marginTop:10,
+        marginTop:0,
         width:"100%"
     },
     textStyle:{

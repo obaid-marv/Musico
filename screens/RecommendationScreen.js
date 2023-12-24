@@ -1,7 +1,7 @@
-import {Text, View, StyleSheet, TextInput, FlatList,Image} from 'react-native'
+import {Text, View, StyleSheet, TextInput, FlatList,Image,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {list} from "./MusicList";
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import MusicCard from '../Components/MusicCard';
 
 const RecommendationScreen = ({navigation})=>{
 
@@ -22,14 +22,11 @@ const RecommendationScreen = ({navigation})=>{
             </View>
 
             <View style={myStyles.content}>
-                
-
-                
-
             
                 <FlatList
                     style={myStyles.FLView}
                     data={list}          
+                    showsVerticalScrollIndicator={false}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item})=>(
                         
@@ -79,8 +76,8 @@ const RecommendationScreen = ({navigation})=>{
                     )}      
     
                 />
-                
-
+            
+                <MusicCard/>
 
             </View>
         </View>
@@ -97,10 +94,10 @@ const myStyles = StyleSheet.create({
         backgroundColor:"#001f3f",  
     },
     content:{
-        top:20,
-        flex:1,
-        alignItems:"center",
-        justifyContent:"flex-start",
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingVertical: 20,
         width:"100%"
     },
     header:{
@@ -112,7 +109,6 @@ const myStyles = StyleSheet.create({
         width:"100%"
     },
     FLView:{
-
         width:"92%",
         flex:1
     },

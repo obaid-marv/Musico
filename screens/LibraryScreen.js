@@ -1,7 +1,9 @@
 import React from 'react';
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, Image } from 'react-native';
-
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import Icon from 'react-native-vector-icons/Ionicons'
+import MusicCard from '../Components/MusicCard';
 // import {getAuth}  from 'firebase/auth';
 
 const LibraryScreen = ({navigation}) => {
@@ -33,30 +35,30 @@ const LibraryScreen = ({navigation}) => {
 
             <TouchableOpacity>
                 <View style = {[styles.upperCard]}>
-                    <Icon name='mic-circle' size={35} color="#FFA500" />
-                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Downloads</Text>
+                    <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
+                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Artists</Text>
                 </View>
             </TouchableOpacity>
 
             
             <TouchableOpacity>
                 <View style = {[styles.upperCard]}>
-                    <Icon name='disc' size={35} color="#FFA500" />
+                    <Icon name='disc-outline' size={35} color="#FFA500" />
+                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Albums</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+
+                <View style = {[styles.upperCard]}>
+                <SimpleLineIcons name='playlist' size={35} color="#FFA500" />   
                     <Text style={[styles.colorWhite,  styles.smallFonts] }>Playlists</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity>
 
                 <View style = {[styles.upperCard]}>
-                    <Icon name='musical-notes' size={35} color="#FFA500" />
-                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Favourites</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-
-                <View style = {[styles.upperCard]}>
-                    <Icon name='musical-note' size={35} color="#FFA500" />
-                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Local files</Text>
+                    <Icon name='musical-notes-outline' size={35} color="#FFA500" />
+                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Genre</Text>
                 </View>
             </TouchableOpacity>
 
@@ -116,6 +118,7 @@ const LibraryScreen = ({navigation}) => {
                 </View>
             </View>
 
+            <MusicCard/>
 </View>
         </View>
     );
@@ -161,10 +164,14 @@ const styles = StyleSheet.create({
         marginTop:40,
         top:45,
         left:10,
+        marginBottom:75
     },
     colorOffWhite:{
         color:"#aaa",
         bottom:15,
+        fontSize:16,
+        marginLeft:5,
+        fontWeight:"bold"
     },
     upperCard:{
         display:"flex",

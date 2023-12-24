@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable } from 'react-native';
+import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 // import { signInWithEmailAndPassword, getAuth} from "firebase/auth"
 
@@ -34,17 +34,20 @@ const Login = ({navigation}) => {
  
     return(
         <View style={styles.container}>
+            <View style={styles.mainIconView}>
+                <Image style={styles.mainIconStyle} source={require("../Components/MusicoIcon.png")}/>
+            </View>
 
-            <Text style = {styles.title}>LOG IN</Text>
-            <Text style = {styles.title}>Welcome back!</Text>
+            <Text style = {styles.title1}>Login</Text>
+            <Text style = {styles.title2}>Welcome back!</Text>
         <TextInput style={styles.inputs} value={email} onChangeText={text => setEmail(text)} placeholderTextColor="#FFA500" placeholder='Enter your Username/Email' />
             <TextInput style={styles.inputs} value={password} onChangeText={password => setPassword(password)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
-            <TouchableOpacity>
+            <TouchableOpacity style={{width:"83%"}}>
                 <Text style={styles.pTextPass} >Forgot password?</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={()=>{navigation.navigate("Main")}}>
-                <Text style={styles.btn}>Log in</Text>
+                <Text style={styles.btn}>Login</Text>
             </TouchableOpacity>
 
 
@@ -57,14 +60,14 @@ const Login = ({navigation}) => {
         </Pressable>
 </View>
 <View style={styles.lineSeparator}>
-    <Text style = {styles.colorWhite}></Text>
-    <Text style = {styles.colorWhite} >OR</Text>
-    <Text style = {styles.colorWhite} ></Text>
+        <Text style = {styles.orLines}>____________________</Text>
+        <Text style = {styles.orText} >Or</Text>
+        <Text style = {styles.orLines} >____________________</Text>
 </View>
     <TouchableOpacity>
         <View style={styles.logoDiv}>
-            <Icon style={styles.logoIcon} name='logo-facebook' size={20} color="white"/>
-            <Text style={styles.logo}>log in with facebook</Text>
+            <Icon style={styles.logoIcon} name='logo-facebook' size={22} color="white"/>
+            <Text style={styles.logo}>Login with facebook</Text>
         </View>
     </TouchableOpacity>
         </View>
@@ -75,7 +78,7 @@ export default Login;
 
 const styles = StyleSheet.create({
     links:{
-        marginBottom:10,
+        marginBottom:5,
         display:"flex",
         flexDirection:"row",
     },
@@ -85,11 +88,16 @@ const styles = StyleSheet.create({
     },
     loginBtn:{
         flex:1,
-        color:"white",
-        marginRight:20,
+        color:"#2F89FC",
+        fontWeight:"bold",
+        marginRight:35,
     },
-    colorWhite:{
-        color:"white",
+    mainIconView:{
+        marginBottom:20
+    },
+    mainIconStyle:{
+        height:90,
+        width:90
     },
     nextButton:{
         display:"flex",
@@ -104,6 +112,14 @@ const styles = StyleSheet.create({
     logoIcon:{
         flex:1,
     },
+    orText:{
+        color:"#FFA500",
+        marginTop:5
+    },
+    orLines:{
+        marginHorizontal:10,
+        color:"#FFA500"
+    },  
     btn:{
         backgroundColor:"#FFA500",
         color:"black",
@@ -113,11 +129,14 @@ const styles = StyleSheet.create({
         padding:12,
         textAlign:"center",
         borderRadius:10,
+        fontWeight:"bold",
+        fontSize:16
     },
     logo:{
         flex:8,
-
+        fontWeight:"bold",
         color:"white",
+        fontSize:16,
         textAlign:"center"
     },
     inputs:{
@@ -146,9 +165,16 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         backgroundColor:"#001F3F",
     },
-    title:{
+    title1:{
+        fontSize:26,
+        color:"#FFA500",
+        fontWeight:"700",
+        marginBottom:5,
+        marginTop:10
+    },
+    title2:{
         fontSize:24,
-        color:"white",
+        color:"#FFA500",
         fontWeight:"700",
         marginBottom:18,
     },
@@ -156,10 +182,11 @@ const styles = StyleSheet.create({
         color:"#FFA500",
         flex:4,
         marginLeft:34,
-        fontSize:12,
+        fontSize:14,
     },
     pTextPass:{
         color:"#FFA500",
-        fontSize:12,
+        fontSize:14,
+        textAlign:"left"
     }
 });
