@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, ToastAndroid } from 'react-native';
+import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, ToastAndroid,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 // import {firebase} from "../../../Firebase";
 // import auth, {createUserWithEmailAndPassword, getAuth} from "firebase/auth"
@@ -61,7 +61,10 @@ const SignUp = ({navigation}) => {
 
     return(
         <View style={styles.container}>
-
+            
+            <View style={styles.mainIconView}>
+                <Image style={styles.mainIconStyle} source={require("../Components/MusicoIcon.png")}/>
+            </View>
 
             <Text style = {styles.title}>Sign Up</Text>
             <TextInput style={styles.inputs} value={firstName} onChangeText={text => setFirstName(text)} placeholderTextColor="#FFA500" placeholder='Enter your Username'/>
@@ -80,16 +83,16 @@ const SignUp = ({navigation}) => {
                     </Pressable>
             </View>  
             <View style={styles.lineSeparator}>
-                <Text style = {styles.colorWhite}></Text>
-                <Text style = {styles.colorWhite} >OR</Text>
-                <Text style = {styles.colorWhite} ></Text>
+                <Text style = {styles.orLines}>____________________</Text>
+                <Text style = {styles.orText} >Or</Text>
+                <Text style = {styles.orLines} >____________________</Text>
 
 
             </View>
                 <TouchableOpacity>
                     <View style={styles.logoDiv}>
-                        <Icon style={styles.logoIcon} name='logo-facebook' size={20} color="white"/>
-                        <Text style={styles.logo}>log in with facebook</Text>
+                        <Icon style={styles.logoIcon} name='logo-facebook' size={22} color="white"/>
+                        <Text style={styles.logo}>Login with facebook</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -100,24 +103,34 @@ export default SignUp;
 
 const styles = StyleSheet.create({
     links:{
-        marginBottom:10,
+        marginBottom:5,
         display:"flex",
         flexDirection:"row",
     },
     lineSeparator:{
-        display:"flex",
         flexDirection:"row",
+    },
+    mainIconView:{
+        marginBottom:20
+    },
+    mainIconStyle:{
+        height:90,
+        width:90
     },
     loginBtn:{
         flex:1,
-        color:"white",
+        color:"#2F89FC",
         fontWeight:"bold",
-        marginRight:20,
+        marginRight:35,
     },
-    colorWhite:{
-        color:"white",
-        
+    orText:{
+        color:"#FFA500",
+        marginTop:5
     },
+    orLines:{
+        marginHorizontal:10,
+        color:"#FFA500"
+    },  
     nextButton:{
 
         display:"flex",
@@ -142,10 +155,14 @@ const styles = StyleSheet.create({
         padding:12,
         textAlign:"center",
         borderRadius:10,
+        fontWeight:"bold",
+        fontSize:16
     },
     logo:{
         flex:8,
         color:"white",
+        fontWeight:"bold",
+        fontSize:16,
         textAlign:"center"
     },
     inputs:{
@@ -161,7 +178,7 @@ const styles = StyleSheet.create({
     },
     logoDiv:{
         display:"flex",
-        marginTop:25,
+        marginTop:20,
         flexDirection:"row",
         backgroundColor:"blue",
         padding:10,
@@ -176,7 +193,7 @@ const styles = StyleSheet.create({
     },
     title:{
         fontSize:24,
-        color:"white",
+        color:"#FFA500",
         fontWeight:"700",
         marginBottom:18,
     },
@@ -184,6 +201,6 @@ const styles = StyleSheet.create({
         color:"#FFA500",
         flex:4,
         marginLeft:34,
-        fontSize:12,
+        fontSize:14,
     }
 });

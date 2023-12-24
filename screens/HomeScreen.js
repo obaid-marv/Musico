@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { Link } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 import MusicCard from '../Components/MusicCard';
+import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 
 const HomeScreen = ({navigation})=>{
 
@@ -26,7 +28,7 @@ const HomeScreen = ({navigation})=>{
         <View style={myStyles.container}>
             <View style={myStyles.header}>
                     <Text style={myStyles.text1}>Music</Text>
-                    <TouchableOpacity onPress={()=>navigation.navigate("Popular")}>
+                    <TouchableOpacity onPress={()=>navigation.navigate("RecommendationScreen")}>
                     <Text style={myStyles.text2}>Recommended</Text>
                     </TouchableOpacity>
             </View>
@@ -41,30 +43,30 @@ const HomeScreen = ({navigation})=>{
 
                 <TouchableOpacity>
                     <View style = {[myStyles.upperCard]}>
-                        <Icon name='mic-circle' size={35} color="#FFA500" />
-                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Downloads</Text>
+                        <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
+                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Artists</Text>
                     </View>
                 </TouchableOpacity>
 
 
                 <TouchableOpacity>
                     <View style = {[myStyles.upperCard]}>
-                        <Icon name='disc' size={35} color="#FFA500" />
-                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Playlists</Text>
+                        <Icon name='disc-outline' size={35} color="#FFA500" />
+                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Albums</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
 
                     <View style = {[myStyles.upperCard]}>
-                        <Icon name='musical-notes' size={35} color="#FFA500" />
+                        <SimpleLineIcons name='playlist' size={35} color="#FFA500" />
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Favourites</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
 
                     <View style = {[myStyles.upperCard]}>
-                        <Icon name='musical-note' size={35} color="#FFA500" />
-                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Local files</Text>
+                        <Icon name='musical-notes-outline' size={35} color="#FFA500" />
+                        <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Genre</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -76,6 +78,7 @@ const HomeScreen = ({navigation})=>{
                 <View style={myStyles.hotList}>
                 <FlatList
                 data={data}
+                showsHorizontalScrollIndicator={false}
                 horizontal
                 renderItem={renderItem}
                 keyExtractor={item => item.key}
@@ -85,6 +88,7 @@ const HomeScreen = ({navigation})=>{
                 <View style={myStyles.hotList}>
                 <FlatList
                 data={data}
+                showsHorizontalScrollIndicator={false}
                 horizontal
                 renderItem={renderItem}
                 keyExtractor={item => item.key}
@@ -198,6 +202,7 @@ const myStyles = StyleSheet.create({
         shadowOffset:{width:100, height:100},
         shadowOpacity:1,
         top:25,
+        
     },
     smallFonts:{
         fontSize:12,
