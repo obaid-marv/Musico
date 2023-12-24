@@ -8,6 +8,7 @@ import Settings from '../screens/Settings';
 import Login from '../screens/LogIn';
 import StartScreen from '../screens/StartScreen';
 import PopularScreen from '../screens/PopularScreen';
+import AccountScreen from '../screens/AccountScreen';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
 
@@ -55,7 +56,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Music" component={HomeScreen} />
       <Tab.Screen name="Library" component={LibraryScreen} />
       <Tab.Screen name="Popular" component={PopularScreen} />
-      <Tab.Screen name="Account" component={Settings} />
+      <Tab.Screen name="Account" component={AccountScreen} />
     </Tab.Navigator>
     </KeyboardAvoidingView>
   );
