@@ -8,6 +8,7 @@ import SignUp from './screens/SignUp';
 import LaunchScreen from './screens/LaunchScreen';
 import RecommendationScreen from './screens/RecommendationScreen';
 import EditScreen from './screens/EditScreen';
+import Settings from './screens/Settings';
 
 const Stack = createStackNavigator();
 
@@ -19,11 +20,12 @@ const App = () => {
         }}>
         <Stack.Screen name="LaunchScreen" component={LaunchScreen} />  
         <Stack.Screen name="StartScreen" component={StartScreen} />
+        <Stack.Screen name="Edit" component={EditScreen} />
+        <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Main" component={BottomTabNavigator} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={SignUp} />
         <Stack.Screen name="Recommended" component={RecommendationScreen} />
-        <Stack.Screen name="Edit" component={EditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

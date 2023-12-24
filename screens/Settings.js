@@ -13,14 +13,15 @@ const Settings = ({navigation}) => {
     return(
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.pop()}>
                     <Icon name='arrow-back' size={30} color='#ffffff'/>
                 </TouchableOpacity>
                 <Text style={styles.settingsText}>Settings</Text>
                 <Icon name='arrow-back' size={30} color='#001f3f'/>
             </View>
             <View style={styles.profileView}>
-                <Image style={styles.img} source={require("./profi1.png")} />
+                <Image style={styles.img} source={require("../Components/Profile1.png")} />
+                {/* <Image style={styles.img} source={require("./profi1.png")} /> */}
                 <View style={styles.textView}>
                     <Text style={styles.name}>Obaid</Text>
                     <Text style={styles.pText}>Edit Profile</Text>

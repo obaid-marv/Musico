@@ -192,13 +192,10 @@ const styles = StyleSheet.create({
         top:25,
     },
     container: {
-        
         flex:1,
         alignItems:"center",
         justifyContent:"center",
         backgroundColor:"#001f3f",
-
-        
     },
     content:{
 
@@ -215,7 +212,7 @@ const styles = StyleSheet.create({
     },
     title:{
         fontSize:24,
-        color:"white",
+        color:"#FFA500",
         fontWeight:"700",
         margin: 6,
     },
