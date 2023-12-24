@@ -2,6 +2,7 @@ import React from 'react';
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, Image } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons'
+import MusicCard from '../Components/MusicCard';
 // import {getAuth}  from 'firebase/auth';
 
 const LibraryScreen = ({navigation}) => {
@@ -116,6 +117,7 @@ const LibraryScreen = ({navigation}) => {
                 </View>
             </View>
 
+            <MusicCard/>
 </View>
         </View>
     );
@@ -161,6 +163,7 @@ const styles = StyleSheet.create({
         marginTop:40,
         top:45,
         left:10,
+        marginBottom:75
     },
     colorOffWhite:{
         color:"#aaa",
