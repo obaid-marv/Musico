@@ -6,8 +6,6 @@ import StartScreen from './screens/StartScreen';
 import Login from './screens/LogIn';
 import SignUp from './screens/SignUp';
 import LaunchScreen from './screens/LaunchScreen';
-
-
 import RecommendationScreen from './screens/RecommendationScreen';
 
 const Stack = createStackNavigator();
