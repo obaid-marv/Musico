@@ -15,19 +15,21 @@ const LibraryScreen = ({navigation}) => {
     // }
 
     return(
+
         <View style={styles.container}>
-            <View style = {styles.content}>
-
-
+            
             <View style={styles.heading}>
-                <Pressable style={{flex:1, left:18}}>
+                <TouchableOpacity style={{flex:1, left:18}}>
 
                 <Icon name='arrow-back' size={35} color= "#A6A6A6" />
-                </Pressable>
-            <Text style = {[styles.title, {flex:2, display:"flex" }]}>Library</Text>
+                </TouchableOpacity>
+            <Text style = {[styles.title, {flex:2, display:"flex",marginLeft:30 }]}>Library</Text>
             </View>
+            <View style = {styles.content}>
+
+            
  
-<View style={styles.upperCardsClass}>
+            <View style={styles.upperCardsClass}>
 
             <TouchableOpacity>
                 <View style = {[styles.upperCard]}>
@@ -37,34 +39,33 @@ const LibraryScreen = ({navigation}) => {
             </TouchableOpacity>
 
             
-            <Pressable>
-
+            <TouchableOpacity>
                 <View style = {[styles.upperCard]}>
                     <Icon name='disc' size={35} color="#FFA500" />
                     <Text style={[styles.colorWhite,  styles.smallFonts] }>Playlists</Text>
                 </View>
-            </Pressable>
-            <Pressable>
+            </TouchableOpacity>
+            <TouchableOpacity>
 
                 <View style = {[styles.upperCard]}>
                     <Icon name='musical-notes' size={35} color="#FFA500" />
                     <Text style={[styles.colorWhite,  styles.smallFonts] }>Favourites</Text>
                 </View>
-            </Pressable>
-            <Pressable>
+            </TouchableOpacity>
+            <TouchableOpacity>
 
                 <View style = {[styles.upperCard]}>
                     <Icon name='musical-note' size={35} color="#FFA500" />
                     <Text style={[styles.colorWhite,  styles.smallFonts] }>Local files</Text>
                 </View>
-            </Pressable>
+            </TouchableOpacity>
 
-</View>
+        </View>
             <View style={styles.lowerBody}>
                 <Text style = {styles.colorOffWhite}>Recently Streamed</Text>
                 <View>
 
-                <Pressable>
+                <TouchableOpacity>
 
                     <View style={styles.libraryCard}>
                         <View style = {styles.imageDiv}>
@@ -75,7 +76,43 @@ const LibraryScreen = ({navigation}) => {
                             <Text style = {{color:"#aaa"}}>No. of Songs</Text>
                         </View>
                     </View>
-                </Pressable>
+                </TouchableOpacity>
+                <TouchableOpacity>
+
+                    <View style={styles.libraryCard}>
+                        <View style = {styles.imageDiv}>
+                            <Image style={{width:75, height:75, borderRadius:15}} source={require("./Havana.jpg")}/>
+                        </View>
+                        <View style={styles.data}>
+                            <Text style = {{color:"#FFA500"}}>Album name</Text>
+                            <Text style = {{color:"#aaa"}}>No. of Songs</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+
+                    <View style={styles.libraryCard}>
+                        <View style = {styles.imageDiv}>
+                            <Image style={{width:75, height:75, borderRadius:15}} source={require("./Havana.jpg")}/>
+                        </View>
+                        <View style={styles.data}>
+                            <Text style = {{color:"#FFA500"}}>Album name</Text>
+                            <Text style = {{color:"#aaa"}}>No. of Songs</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+
+                    <View style={styles.libraryCard}>
+                        <View style = {styles.imageDiv}>
+                            <Image style={{width:75, height:75, borderRadius:15}} source={require("./Havana.jpg")}/>
+                        </View>
+                        <View style={styles.data}>
+                            <Text style = {{color:"#FFA500"}}>Album name</Text>
+                            <Text style = {{color:"#aaa"}}>No. of Songs</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
                 </View>
             </View>
 
@@ -99,8 +136,11 @@ const styles = StyleSheet.create({
     },
     heading:{
         display:"flex",
+        marginTop:50,
         flexDirection:"row",
-        backgroundColor:"pink"
+
+        justifyContent:"center",
+        alignItems:"center"
     },
     libraryCard:{
         width:350,
@@ -154,10 +194,12 @@ const styles = StyleSheet.create({
         
     },
     content:{
-        top:130,
+
         flex:1,
         alignItems:"center",
         justifyContent:"flex-start",
+        
+        
     },
     upperCardsClass:{
         display:"flex",

@@ -1,24 +1,31 @@
 import {Text, View, StyleSheet, TextInput, FlatList,Image} from 'react-native'
-import RecommendationCard from './RecommendationCard'
+import RecommendationCard from '../Components/RecommendationCard'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {list} from "./MusicList";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const RecommendationScreen = ()=>{
+const RecommendationScreen = ({navigation})=>{
 
     return(
         <View style={myStyles.container}>
-            <View style={myStyles.content}>
-                <View style={myStyles.header}>
+            <View style={myStyles.header}>
+                    <TouchableOpacity onPress={()=>navigation.navigate("Music")}>
                     <Text style={myStyles.text1}>Music</Text>
+                    </TouchableOpacity>
                     <Text style={myStyles.text2}>Recommended</Text>
-                </View>
-
-                <View style={myStyles.searchBarView}>
+                    
+            </View>
+            <View style={myStyles.searchBarView}>
                     <View style={myStyles.searchIcon}>
                         <Icon name='search' size={35} color= "grey"/>
                     </View>
                     <TextInput style={myStyles.searchBar} placeholder='Search for artists, songs and genre' placeholderTextColor={"grey"}></TextInput>
-                </View>
+            </View>
+
+            <View style={myStyles.content}>
+                
+
+                
 
             
                 <FlatList
@@ -26,6 +33,8 @@ const RecommendationScreen = ()=>{
                     data={list}          
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item})=>(
+                        
+                        <TouchableOpacity>
                         <View key={item.id} style={myStyles.rectView}>
                             <View>
                                 <Image style={{width:75, height:75, borderRadius:20}} source={require("./Havana.jpg")} />
@@ -67,6 +76,7 @@ const RecommendationScreen = ()=>{
                             </View>
 
                         </View>
+                        </TouchableOpacity>
                     )}      
     
                 />
@@ -88,7 +98,7 @@ const myStyles = StyleSheet.create({
         backgroundColor:"#001f3f",  
     },
     content:{
-        top:130,
+        top:20,
         flex:1,
         alignItems:"center",
         justifyContent:"flex-start",
@@ -96,26 +106,30 @@ const myStyles = StyleSheet.create({
     },
     header:{
         display:"flex",
+        marginTop:50,
         flexDirection:"row",
         justifyContent:"flex-start",
         // backgroundColor:"grey",
         width:"100%"
     },
     FLView:{
-        marginTop:15,
+
         width:"92%",
         flex:1
     },
     rectView:{
         borderRadius:25,
         borderWidth:1,
-        borderColor:"black",
+        borderColor:"#001f3f",
         backgroundColor:"#033348",
         margin:5,
-        flexDirection:"row"
+        flexDirection:"row",
+        elevation:10,
+        shadowColor:"#ffa500",
+        
     },
     innerRectView:{
-        width:"70%"
+        width:"70%",
     },
     likesView:{
         paddingHorizontal:5,
@@ -137,14 +151,18 @@ const myStyles = StyleSheet.create({
         // backgroundColor:"yellow",
     },
     searchBarView:{
-        marginTop: 10,
+        
         width:"92%",
         backgroundColor:"white",
         borderRadius:40,
-        flexDirection:"row"
+        height:40,
+        alignItems:"center",
+        flexDirection:"row",
+        marginTop:20,
+
     },
     searchIcon:{
-        paddingTop:8,
+
         paddingLeft:7
     },
     searchBar:{

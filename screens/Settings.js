@@ -3,7 +3,7 @@ import React from 'react';
 import { View , StyleSheet, Pressable, Image, Button,Text } from 'react-native';
 
 
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 const Settings = () => {
 
