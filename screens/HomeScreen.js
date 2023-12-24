@@ -3,6 +3,7 @@ import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, FlatList,
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Link } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
+import MusicCard from '../Components/MusicCard';
 
 const HomeScreen = ({navigation})=>{
 
@@ -91,7 +92,7 @@ const HomeScreen = ({navigation})=>{
 
                     
                 </View>
-
+                <MusicCard/>
 
                 
             
@@ -200,6 +201,7 @@ const myStyles = StyleSheet.create({
     },
     smallFonts:{
         fontSize:12,
+        fontWeight:"bold"
     },
     bold:{
         fontSize:18,
