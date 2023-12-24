@@ -18,7 +18,6 @@ const App = () => {
         }}>
         <Stack.Screen name="LaunchScreen" component={LaunchScreen} />  
         <Stack.Screen name="StartScreen" component={StartScreen} />
-        <Stack.Screen name="RecommendationScreen" component={RecommendationScreen}/>
         <Stack.Screen name="Main" component={BottomTabNavigator} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={SignUp} />
