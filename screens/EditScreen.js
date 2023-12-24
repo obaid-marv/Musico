@@ -2,13 +2,13 @@ import {Text, View, Image, Pressable, StyleSheet, TextInput, TouchableOpacity} f
 import Icon from 'react-native-vector-icons/Ionicons'
 import { KeyboardAvoidingView } from 'react-native'
 
-const EditScreen = ()=>{
+const EditScreen = ({navigation})=>{
     return(
         <View style={myStyles.container}>
 
             <View style={myStyles.yellowView}>
                 <View style={myStyles.header}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.pop()}>
                         <Icon style={{marginLeft:10}} name='arrow-back' size={35} color= "black" />
                     </TouchableOpacity>
                     <Text style={myStyles.headerText}>Edit Profile</Text>

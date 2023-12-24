@@ -56,7 +56,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Music" component={HomeScreen} />
       <Tab.Screen name="Library" component={LibraryScreen} />
       <Tab.Screen name="Popular" component={PopularScreen} />
-      <Tab.Screen name="Account" component={EditScreen} />
+      <Tab.Screen name="Account" component={Settings} />
     </Tab.Navigator>
     </KeyboardAvoidingView>
   );
