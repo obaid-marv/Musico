@@ -1,5 +1,4 @@
 import {Text, View, StyleSheet, TextInput, FlatList,Image} from 'react-native'
-import RecommendationCard from '../Components/RecommendationCard'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {list} from "./MusicList";
 import { TouchableOpacity } from 'react-native-gesture-handler';
