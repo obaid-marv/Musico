@@ -57,7 +57,7 @@ const Settings = ({navigation}) => {
             <View style={{alignItems:"center"}}>
                 <View style={styles.subData}>
                         <Text style={styles.dataText}> Select language</Text>
-                        <TouchableOpacity style={[styles.editArrow,{marginLeft:120}]}>
+                        <TouchableOpacity style={[styles.editArrow,{marginLeft:140}]}>
                             <Icon name='chevron-forward' size={30} color='#ffffff'/>
                         </TouchableOpacity>
                 </View> 
@@ -71,7 +71,7 @@ const Settings = ({navigation}) => {
             </View>
 
             <TouchableOpacity>
-                <Text style={[styles.settingsText,{marginLeft:10,marginTop:10}]}>Log Out</Text>
+                <Text style={[styles.settingsText,{marginLeft:10,fontSize:22,marginTop:10}]}>Log Out</Text>
                 <Text style={[styles.pText,{marginLeft:40}]}>You are Logged in as Obaid</Text>
             </TouchableOpacity>
 
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         padding:10,
         flexDirection:"row",
         alignItems:"center",
-        width:"80%",
+        width:"90%",
 
         justifyContent:"space-between",
         marginTop:10,
