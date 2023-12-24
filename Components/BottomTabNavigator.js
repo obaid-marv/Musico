@@ -9,7 +9,7 @@ import Login from '../screens/LogIn';
 import StartScreen from '../screens/StartScreen';
 import PopularScreen from '../screens/PopularScreen';
 import { KeyboardAvoidingView, Platform } from 'react-native';
-import PopularScreen from '../screens/PopularScreen';
+
 
 const Tab = createBottomTabNavigator();
 
