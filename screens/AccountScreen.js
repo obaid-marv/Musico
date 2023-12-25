@@ -65,15 +65,15 @@ const AccountScreen =({navigation})=> {
                 <FontAwesome5 style={myStyles.editIcon} name="times" size={20} color={'#FFA500'} />
                 </TouchableOpacity>
                 </>
-            ) : (
+                ) : (
                 <>
                 <Text style={myStyles.nameText}>{name}</Text>
                 <TouchableOpacity onPress={handleEditName}>
                 <FontAwesome5 style={myStyles.editIcon} name="edit" size={20} color={'#FFA500'} />
                 </TouchableOpacity>
                 </>
-            )}
-        </View>
+                )}
+            </View>
 
             <View style={myStyles.lowerView}>
 
@@ -85,7 +85,7 @@ const AccountScreen =({navigation})=> {
                     </View>
                 </TouchableOpacity>
 
-                <Pressable style={myStyles.pressableView}>
+                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('Language is English', Toast.SHORT)}>
                     <Feather style={myStyles.leftIcon} name="globe" size={23} color={"black"}/>
                     <Text style={myStyles.lowerTexts}>Language</Text>
                     <View style={myStyles.rightIcon}>
@@ -93,7 +93,7 @@ const AccountScreen =({navigation})=> {
                     </View>
                 </Pressable>
                 
-                <Pressable style={myStyles.pressableView}>
+                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('No need to contact us', Toast.SHORT)}>
                     <MaterialCommunityIcons style={myStyles.leftIcon} name="message-outline" size={23} color={"black"}/>
                     <Text style={myStyles.lowerTexts}>Contact Us</Text>
                     <View style={myStyles.rightIcon}>
@@ -101,7 +101,7 @@ const AccountScreen =({navigation})=> {
                     </View>
                 </Pressable>
 
-                <Pressable style={myStyles.pressableView}>
+                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('Nothing here', Toast.SHORT)}>
                     <SimpleLineIcons style={myStyles.leftIcon} name="question" size={23} color={"black"}/>
                     <Text style={myStyles.lowerTexts}>FAQS</Text>
                     <View style={myStyles.rightIcon}>
@@ -118,7 +118,9 @@ const AccountScreen =({navigation})=> {
                 </TouchableOpacity>
             </View>
 
+            <View style={{marginBottom:5}}>
             <MusicCard/>
+            </View>        
         </View>
     )
 }

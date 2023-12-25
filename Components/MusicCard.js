@@ -37,10 +37,8 @@ export default MusicCard;
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
     flexDirection: "row",
     paddingHorizontal: 10,
-    marginBottom: 10,
     backgroundColor:"#001f3f"
   },
   pressableContainer: {

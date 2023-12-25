@@ -58,8 +58,8 @@ const PopularScreen = (navigation)=>{
                 </View>
             )}
             />
-            {/* <MusicCard/> */}
-            <View style={{flex:1}}><MusicCard/></View>
+            
+            <MusicCard/>
         </View>
     )
 }

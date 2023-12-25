@@ -33,36 +33,36 @@ const LibraryScreen = ({navigation}) => {
  
             <View style={styles.upperCardsClass}>
 
-            <TouchableOpacity>
-                <View style = {[styles.upperCard]}>
-                    <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
-                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Artists</Text>
-                </View>
-            </TouchableOpacity>
+                <TouchableOpacity>
+                    <View style = {[styles.upperCard]}>
+                        <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
+                        <Text style={[styles.colorWhite,  styles.smallFonts] }>Artists</Text>
+                    </View>
+                </TouchableOpacity>
 
             
-            <TouchableOpacity>
-                <View style = {[styles.upperCard]}>
-                    <Icon name='disc-outline' size={35} color="#FFA500" />
-                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Albums</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
+                <TouchableOpacity>
+                    <View style = {[styles.upperCard]}>
+                        <Icon name='disc-outline' size={35} color="#FFA500" />
+                        <Text style={[styles.colorWhite,  styles.smallFonts] }>Albums</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
 
-                <View style = {[styles.upperCard]}>
-                <SimpleLineIcons name='playlist' size={35} color="#FFA500" />   
-                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Playlists</Text>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
+                    <View style = {[styles.upperCard]}>
+                    <SimpleLineIcons name='playlist' size={35} color="#FFA500" />   
+                        <Text style={[styles.colorWhite,  styles.smallFonts] }>Playlists</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
 
-                <View style = {[styles.upperCard]}>
-                    <Icon name='musical-notes-outline' size={35} color="#FFA500" />
-                    <Text style={[styles.colorWhite,  styles.smallFonts] }>Genre</Text>
-                </View>
-            </TouchableOpacity>
+                    <View style = {[styles.upperCard]}>
+                        <Icon name='musical-notes-outline' size={35} color="#FFA500" />
+                        <Text style={[styles.colorWhite,  styles.smallFonts] }>Genre</Text>
+                    </View>
+                </TouchableOpacity>
 
-        </View>
+            </View>
             <View style={styles.lowerBody}>
                 <Text style = {styles.colorOffWhite}>Recently Streamed</Text>
                 <View>
@@ -118,8 +118,8 @@ const LibraryScreen = ({navigation}) => {
                 </View>
             </View>
 
-            <MusicCard/>
-</View>
+        </View>
+            <MusicCard />
         </View>
     );
 };
@@ -202,7 +202,6 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:"center",
         justifyContent:"flex-start",
-        
         
     },
     upperCardsClass:{
