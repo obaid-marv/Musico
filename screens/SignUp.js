@@ -3,61 +3,36 @@ import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable
 import Icon from 'react-native-vector-icons/Ionicons'
 // import {firebase} from "../../../Firebase";
 // import auth, {createUserWithEmailAndPassword, getAuth} from "firebase/auth"
-
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const SignUp = ({navigation}) => {
-    // const myauth = getAuth();
-
+    
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [firstName, setFirstName] = useState(null);
     const [phoneNo , setPhoneNo] = useState(null);
 
-    // const signUpUser = async ()=>{
-    //     try {
 
-    //     if(email.length > 0 && password.length >= 6){
-
-            
-    //             await createUserWithEmailAndPassword(myauth, email, password)
-    //             pastDetailsToFirestore();
-    //             alert("Account created successfully");
-                
-    //         }else{
-    //             alert("Please fill all the credentials");
-    //         }
-    //     } catch (error) {
-    //         console.log(error.message);
-    //         alert(error.message);
-    //     }
-
-    //     setEmail(null);
-    //     setPhoneNo(null);
-    //     setFirstName(null);
-    //     setPassword(null);
-    //     // .then((value) =>{
-    //     //     pastDetailsToFirestore(value.user.uid);
-    //     //     console.log(value.user.uid);
-
-    //     // }).catch(error => console.log(error.message));
-    // }
-
+    const handleSignUp = async () => {
+        try {
+          // Step 1: Create user in Firebase Authentication
+          const { user } = await auth().createUserWithEmailAndPassword(email, password);
     
-    // const pastDetailsToFirestore = async() =>{
-    //     // user = auth.
-
-    //     const user = getAuth().currentUser;
+          // Step 2: Create user document in Firestore
+          await firestore().collection('users').doc(user.uid).set({
+            email,
+            firstName,
+            phoneNo,
+          });
     
-    //     await firebase.firestore().collection("Users").doc(user.uid).set({ 
-    //         email: email,
-    //         firstName : firstName,
-    //         phoneNo:phoneNo,
-    //      }).then(() =>{
-    //          navigation.navigate("home");
-
-    //      }).catch((error) => {console.log(error.message);})
-
-    // }
+          console.log('User created:', user);
+          navigation.navigate("Main")
+        } catch (error) {
+          console.error('Error creating user:', error);
+        }
+      };
+    
 
     return(
         <View style={styles.container}>
@@ -71,7 +46,7 @@ const SignUp = ({navigation}) => {
             <TextInput style={styles.inputs} value={email} onChangeText={text => setEmail(text)} placeholderTextColor="#FFA500" placeholder='Enter your email' />
             <TextInput style={styles.inputs} value={phoneNo} onChangeText={text => setPhoneNo(text)}  placeholderTextColor="#FFA500" placeholder='Enter your Phone Number' />
             <TextInput style={styles.inputs} secureTextEntry value={password} onChangeText={text => setPassword(text)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
-            <TouchableOpacity onPress={()=>{}}>  
+            <TouchableOpacity onPress={()=>{handleSignUp()}}>  
                 <Text style={styles.btn}>Sign Up</Text>
             </TouchableOpacity>
 

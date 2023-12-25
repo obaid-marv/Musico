@@ -1,8 +1,21 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
 
 const StartScreen = ({ navigation }) => {
+
+  const handleLetsGo = ()=>{
+   auth().onAuthStateChanged((user)=>{
+    if(user){
+      navigation.navigate("Main")
+    }
+    else{
+      navigation.navigate("Login")
+    }
+   }) 
+  }
+
   return (
     <ImageBackground
       source={require('./Splash.png')}
@@ -11,7 +24,7 @@ const StartScreen = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.title}>Create your experience!</Text>
         <Text style={styles.pText}>Stream your favorite songs ON THE GO...</Text>
-        <TouchableOpacity onPress={() => {navigation.navigate("Login")}}>
+        <TouchableOpacity onPress={() => {handleLetsGo()}}>
           <View style={styles.nextButton}>
             <Text style={styles.letsgoText}>LET'S GO</Text>
             <Icon style={{marginLeft:5}} name="arrow-forward-circle" size={30} color="black" />
@@ -39,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'transparent', // Set background color to 'transparent' to allow the background image to show through
+    backgroundColor: 'transparent',
   },
   title: {
     fontSize: 24,
@@ -61,5 +74,6 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
+    marginTop:-5
   },
 });
