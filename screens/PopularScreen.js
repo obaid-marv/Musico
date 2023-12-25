@@ -1,4 +1,4 @@
-import {Text, Image, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
+import {Text, Image, StatusBar,View, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Toast from 'react-native-simple-toast';
 import { list } from './MusicList';
@@ -7,10 +7,6 @@ import firestore from '@react-native-firebase/firestore';
 import React, {useEffect, useState} from 'react';
 
 const PopularScreen = (navigation)=>{
-
-    const showMsg = ()=>{
-        Toast.show('Back Button Pressed', Toast.SHORT);
-    }
 
     const [loading, setLoading] = useState(true);
     const [music, setMusic] = useState([])
@@ -39,9 +35,11 @@ const PopularScreen = (navigation)=>{
 
     return(
         <View style={myStyles.container}>
+            <StatusBar backgroundColor={"#001f3f"}/>
+
             <View style={myStyles.header}>
 
-                <TouchableOpacity style={myStyles.backButton} onPress={showMsg}>
+                <TouchableOpacity style={myStyles.backButton} onPress={()=>Toast.show("Use the Botton Tabs !! , This is just for show", Toast.SHORT)}>
                     <Icon name='arrow-back' size={35} color= "#A6A6A6" />
                 </TouchableOpacity>
 
@@ -59,7 +57,7 @@ const PopularScreen = (navigation)=>{
             data={music}
             keyExtractor={(item) => item.id}
             renderItem={({item})=>(
-                <View>
+                <View key={item.id}>
                     <Image style={myStyles.imgStyle} source={{uri:item.artwork}}/>
                     <Text style={myStyles.titleText}>{item.title}</Text>
                     <Text style={myStyles.artistText}>{item.artist}</Text>
@@ -78,7 +76,7 @@ const PopularScreen = (navigation)=>{
             data={music}
             keyExtractor={(item) => item.id}
             renderItem={({item})=>(
-                <View>
+                <View key={item.id}>
                     <Image style={myStyles.imgStyle} source={{ uri: item.artwork}}/>
                     <Text style={myStyles.titleText}>{item.title}</Text>
                     <Text style={myStyles.artistText}>{item.artist}</Text>

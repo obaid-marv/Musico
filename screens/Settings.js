@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { View , StyleSheet, Pressable, Image, Button,Text, TouchableOpacity } from 'react-native';
+import { View , StyleSheet, StatusBar, Image,Text, TouchableOpacity } from 'react-native';
 
 import auth from "@react-native-firebase/auth";
 
-
+import Toast from "react-native-simple-toast"
 import Icon from 'react-native-vector-icons/Ionicons'
 import ToggleSwitch from '../Components/ToggleSwitch';
 
@@ -21,6 +21,8 @@ const Settings = ({navigation}) => {
 
     return(
         <View style={styles.container}>
+            <StatusBar backgroundColor={"#001f3f"}/>
+
             <View style={styles.header}>
                 <TouchableOpacity onPress={()=>navigation.pop()}>
                     <Icon name='arrow-back' size={30} color='#ffffff'/>
@@ -59,15 +61,12 @@ const Settings = ({navigation}) => {
                     <ToggleSwitch />
                 </View> 
 
-
-
-
             </View>
             <Text style={styles.titles}>Language</Text>
             <View style={{alignItems:"center"}}>
                 <View style={styles.subData}>
                         <Text style={styles.dataText}> Select language</Text>
-                        <TouchableOpacity style={[styles.editArrow,{marginLeft:140}]}>
+                        <TouchableOpacity style={[styles.editArrow,{marginLeft:140}]} onPress={()=>Toast.show("No need to select any other language, English is good for you", Toast.SHORT)}>
                             <Icon name='chevron-forward' size={30} color='#ffffff'/>
                         </TouchableOpacity>
                 </View> 
@@ -75,7 +74,7 @@ const Settings = ({navigation}) => {
 
             <Text style={styles.titles}>Terms And Conditions</Text>
             <View style={styles.terms}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>Toast.show("You already know everything !", Toast.SHORT)}>
                     <Text style={[styles.pText,{marginLeft:40,marginTop:10}]}>All Stuff You need to Know!</Text>
                 </TouchableOpacity>
             </View>

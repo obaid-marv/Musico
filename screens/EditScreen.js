@@ -1,4 +1,4 @@
-import {Text, View, Image, Pressable, StyleSheet, TextInput, TouchableOpacity,KeyboardAvoidingView,Platform} from 'react-native'
+import {Text, View,StatusBar ,Image, Pressable, StyleSheet, TextInput, TouchableOpacity,KeyboardAvoidingView,Platform} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import auth from '@react-native-firebase/auth';
 import firebase from '@react-native-firebase/app';
@@ -42,6 +42,7 @@ const EditScreen = ({navigation})=>{
             firstName: userData.firstName,
             email: userData.email,
             phoneNo: userData.phoneNo,
+            password: userData.password
           });
     
           Toast.show("Data updated successfully", Toast.SHORT)
@@ -58,6 +59,7 @@ const EditScreen = ({navigation})=>{
 
     return(
         <View style={myStyles.container}>
+            <StatusBar backgroundColor={"#FFA500"} />
             <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={{flex:1,width:"100%"}}
@@ -69,7 +71,7 @@ const EditScreen = ({navigation})=>{
                             <Icon style={{marginLeft:10}} name='arrow-back' size={35} color= "black" />
                         </TouchableOpacity>
                         <Text style={myStyles.headerText}>Edit Profile</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>Toast.show("This is not worth sharing !", Toast.SHORT)}>
                         <Icon style={{marginRight:15}} name="share-social-outline" size={28} color={"black"} />
                         </TouchableOpacity>
                     </View>
@@ -106,7 +108,7 @@ const EditScreen = ({navigation})=>{
                     <View style={myStyles.textWrap}>
                     <Text style={myStyles.textStyle}>Password</Text>
                     </View>
-                    <TextInput style={myStyles.inputStyle} value={userData.password} onChangeText={(text)=>setUserData({...userData, passworde:text})} secureTextEntry={true} placeholder='AsDfGhJkL' placeholderTextColor={"grey"}/>
+                    <TextInput style={myStyles.inputStyle} value={userData.password} onChangeText={(text)=>setUserData({...userData, password:text})} secureTextEntry={true} placeholder='AsDfGhJkL' placeholderTextColor={"grey"}/>
 
                     <TouchableOpacity style={myStyles.updateBtn} onPress={handleUpdate} disabled={isDisabled}>
                         <Text style={myStyles.updateText}>Update</Text>

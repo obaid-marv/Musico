@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { StyleSheet,View, Text,SafeAreaView, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet,View, StatusBar,Text,SafeAreaView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import TrackPlayer, { usePlaybackState, useTrackPlayerEvents, useProgress } from 'react-native-track-player';
 import Slider from '@react-native-community/slider';
@@ -151,6 +151,8 @@ const MusicPlayer = ({navigation}) => {
 
     return(
         <SafeAreaView style={styles.newcontainer}>
+            <StatusBar backgroundColor={"#001f3f"}/>
+
             <View style={styles.mainContainer}>
                 <View style={styles.upperContainer}>
                     <TouchableOpacity onPress={()=> {navigation.navigate("Main")}}>

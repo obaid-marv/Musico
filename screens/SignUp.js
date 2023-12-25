@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, ToastAndroid,Image } from 'react-native';
+import { View , StyleSheet, StatusBar, Text, TouchableOpacity, TextInput, Pressable,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 // import {firebase} from "../../../Firebase";
 // import auth, {createUserWithEmailAndPassword, getAuth} from "firebase/auth"
@@ -72,6 +72,7 @@ const SignUp = ({navigation}) => {
 
     return(
         <View style={styles.container}>
+            <StatusBar backgroundColor={"#001f3f"}/>
             
             <View style={styles.mainIconView}>
                 <Image style={styles.mainIconStyle} source={require("../Components/MusicoIcon.png")}/>
@@ -100,7 +101,7 @@ const SignUp = ({navigation}) => {
 
 
             </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>Toast.show("Why need facebook?? When above login is much easier", Toast.SHORT)}>
                     <View style={styles.logoDiv}>
                         <Icon style={styles.logoIcon} name='logo-facebook' size={22} color="white"/>
                         <Text style={styles.logo}>Login with facebook</Text>

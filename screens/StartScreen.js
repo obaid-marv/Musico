@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground, StatusBar,StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
 
@@ -22,6 +22,8 @@ const StartScreen = ({ navigation }) => {
       style={styles.backgroundImage}
     >
       <View style={styles.container}>
+        <StatusBar backgroundColor={"#001f3f"}/>
+
         <Text style={styles.title}>Create your experience!</Text>
         <Text style={styles.pText}>Stream your favorite songs ON THE GO...</Text>
         <TouchableOpacity onPress={() => {handleLetsGo()}}>
