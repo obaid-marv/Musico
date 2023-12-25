@@ -1,7 +1,61 @@
 import {Text, View, Image, Pressable, StyleSheet, TextInput, TouchableOpacity,KeyboardAvoidingView,Platform} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import auth from '@react-native-firebase/auth';
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
+import Toast from "react-native-simple-toast"
+import React, {useState, useEffect} from "react"
 
 const EditScreen = ({navigation})=>{
+    const currentUser = firebase.auth().currentUser;
+    const [userData, setUserData] = useState({
+        firstName: '',
+        email: '',
+        phoneNo: '',
+        password: '',
+    });
+    const [isDisabled, setDisabled] = useState(true)
+
+    useEffect(() => {
+        // Fetch user data from Firebase when the component mounts
+        const fetchUserData = async () => {
+          try {
+            const userDocument = await firestore().collection('users').doc(currentUser.uid).get();
+            const userDataFromFirestore = userDocument.data();
+            setUserData({
+              firstName: userDataFromFirestore.firstName,
+              email: userDataFromFirestore.email,
+              phoneNo: userDataFromFirestore.phoneNo,
+              password: userDataFromFirestore.password,
+            });
+          } catch (error) {
+            console.error('Error fetching user data:', error);
+          }
+        };
+        fetchUserData();
+    }, [currentUser]);
+
+    const handleUpdate = async () => {
+        try {
+          // Update user data in Firestore
+          await firestore().collection('users').doc(currentUser.uid).update({
+            firstName: userData.firstName,
+            email: userData.email,
+            phoneNo: userData.phoneNo,
+          });
+    
+          Toast.show("Data updated successfully", Toast.SHORT)
+        } 
+        catch (error) {
+          console.error('Error updating user data:', error);
+          alert(error)
+        }
+      }
+
+    useEffect(() => {
+        setDisabled(!userData.email || !userData.firstName || !userData.phoneNo || userData.phoneNo.trim() === "" || userData.email.trim() === "" || userData.firstName.trim() === "");
+    }, [userData]);
+
     return(
         <View style={myStyles.container}>
             <KeyboardAvoidingView
@@ -37,24 +91,24 @@ const EditScreen = ({navigation})=>{
                     <View style={myStyles.textWrap}>
                     <Text style={myStyles.textStyle}>Username</Text>
                     </View>
-                    <TextInput style={myStyles.inputStyle}  placeholder='Zaki098' placeholderTextColor={"grey"}/> 
+                    <TextInput style={myStyles.inputStyle} value={userData.firstName} onChangeText={(text)=>setUserData({...userData, firstName:text})} placeholder='Zaki098' placeholderTextColor={"grey"}/> 
 
                     <View style={myStyles.textWrap}>
                     <Text style={myStyles.textStyle}>Email Id</Text>
                     </View>
-                    <TextInput style={myStyles.inputStyle} placeholder='zaki098@gmail.com' placeholderTextColor={"grey"} />
+                    <TextInput style={myStyles.inputStyle} value={userData.email} onChangeText={(text)=>setUserData({...userData, email:text})} placeholder='zaki098@gmail.com' placeholderTextColor={"grey"} />
 
                     <View style={myStyles.textWrap}>
                     <Text style={myStyles.textStyle}>Phone Number</Text>
                     </View>
-                    <TextInput style={myStyles.inputStyle} placeholder='+92398788999' placeholderTextColor={"grey"}/>
+                    <TextInput style={myStyles.inputStyle} value={userData.phoneNo} onChangeText={(text)=>setUserData({...userData, phoneNo:text})} placeholder='+92398788999' placeholderTextColor={"grey"}/>
 
                     <View style={myStyles.textWrap}>
                     <Text style={myStyles.textStyle}>Password</Text>
                     </View>
-                    <TextInput style={myStyles.inputStyle} secureTextEntry={true} placeholder='AsDfGhJkL' placeholderTextColor={"grey"}/>
+                    <TextInput style={myStyles.inputStyle} value={userData.password} onChangeText={(text)=>setUserData({...userData, passworde:text})} secureTextEntry={true} placeholder='AsDfGhJkL' placeholderTextColor={"grey"}/>
 
-                    <TouchableOpacity style={myStyles.updateBtn}>
+                    <TouchableOpacity style={myStyles.updateBtn} onPress={handleUpdate} disabled={isDisabled}>
                         <Text style={myStyles.updateText}>Update</Text>
                     </TouchableOpacity>
                 </View>
