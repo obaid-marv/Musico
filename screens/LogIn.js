@@ -2,6 +2,8 @@ import React,{useState} from 'react';
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 // import { signInWithEmailAndPassword, getAuth} from "firebase/auth"
+import auth from '@react-native-firebase/auth';
+import Toast from "react-native-simple-toast"
 
 
 const Login = ({navigation}) => {
@@ -9,29 +11,32 @@ const Login = ({navigation}) => {
 // const auth = getAuth();
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-    // const myAuth = auth.getAuth;
 
-    // const loginUser = async() =>{
-    //     console.log(email);
-    //     console.log( password);
-
-    //     try {
-            
-    //         const currUser = await signInWithEmailAndPassword(auth, email, password);
-    //         console.log("Success");
-    //         navigation.replace("player", {
-    //             email: currUser.user.email,
-    //             uid: currUser.user.uid
-    //         });
-    //     } catch (error) {
-    //         console.log(error.message);
-    //         alert(error.message);
-    //     }
-    //     setEmail("");
-    //     setPassword("");
-        
-    // }
- 
+    const loginUser = async () => {
+        try {
+            if(!email || email.trim() === ""){
+                Toast.show("Email field is empty!!", Toast.SHORT)
+            } 
+            else if(!password || password.trim() === ""){
+                Toast.show("Password field is empty!!", Toast.SHORT)
+            } 
+            else{
+            const userCredential = await auth().signInWithEmailAndPassword(email, password);
+            console.log('User logged in:', userCredential.user);
+            navigation.replace('Main');
+            }
+        } 
+        catch (error) {
+            if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password" || error.code === "auth/invalid-credential" ) {
+                Toast.show("Invalid email or password", Toast.LONG);
+            } 
+            else {
+                console.error('Error logging in:', error);
+                alert(error.message);
+            }
+        }       
+      };
+   
     return(
         <View style={styles.container}>
             <View style={styles.mainIconView}>
@@ -41,12 +46,12 @@ const Login = ({navigation}) => {
             <Text style = {styles.title1}>Login</Text>
             <Text style = {styles.title2}>Welcome back!</Text>
         <TextInput style={styles.inputs} value={email} onChangeText={text => setEmail(text)} placeholderTextColor="#FFA500" placeholder='Enter your Username/Email' />
-            <TextInput style={styles.inputs} value={password} onChangeText={password => setPassword(password)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
+            <TextInput style={styles.inputs} value={password} secureTextEntry onChangeText={password => setPassword(password)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
             <TouchableOpacity style={{width:"83%"}}>
                 <Text style={styles.pTextPass} >Forgot password?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>{navigation.navigate("Main")}}>
+            <TouchableOpacity onPress={()=>loginUser()}>
                 <Text style={styles.btn}>Login</Text>
             </TouchableOpacity>
 
