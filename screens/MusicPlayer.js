@@ -194,8 +194,8 @@ const MusicPlayer = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.timerContainer}>
-                    <Text style={styles.timerText}>{progress.position}</Text>
-                    <Text style={styles.timerText}>{progress.duration}</Text>
+                    <Text style={styles.timerText}>{Math.floor(progress.position.toFixed(0)/60)+":"+progress.position.toFixed(0)%60}</Text>
+                    <Text style={styles.timerText}>{Math.floor(progress.duration.toFixed(0)/60)+":"+progress.duration.toFixed(0)%60}</Text>
                     
                 </View>
                 <Slider
