@@ -4,16 +4,41 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Feather from 'react-native-vector-icons/Feather'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import Toast from 'react-native-simple-toast';
 import MusicCard from "../Components/MusicCard"
+import auth from '@react-native-firebase/auth';
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 
 
 const AccountScreen =({navigation})=> {
-    const [name, setName] = React.useState("Zaki")
-    const [isEditingName, setIsEditingName] = React.useState(false);
-    const [editedName, setEditedName] = React.useState(name);
+    const [user, setUser] = useState(null);
+    const [isEditingName, setIsEditingName] = useState(false);
+    const [editedName, setEditedName] = useState('');
+    
+    useEffect(() => {
+        // Fetch user data from Firebase when the component mounts
+        const fetchUserData = async () => {
+            const currentUser = firebase.auth().currentUser;
+            if (currentUser) {
+                const userDocument = await firestore().collection('users').doc(currentUser.uid).get();
+                setUser(userDocument.data());
+            }
+        };
+        
+        fetchUserData();
+    }, []);
 
+    useEffect(() => {
+        if (user) {
+          setName(user.firstName);
+          setEditedName(user.firstName);
+        }
+      }, [user]);
+
+    const [name, setName] = useState('')
+    
     const handleEditName = () => {
         setIsEditingName(true);
     };
