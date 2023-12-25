@@ -1,23 +1,42 @@
-import React from 'react';
+
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, Image } from 'react-native';
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import Icon from 'react-native-vector-icons/Ionicons'
 import MusicCard from '../Components/MusicCard';
+import React, {useEffect, useState} from 'react';
+import firestore from '@react-native-firebase/firestore';
 // import {getAuth}  from 'firebase/auth';
 
 const LibraryScreen = ({navigation}) => {
 
-    // const handleSignOut = () =>{
+    const [loading, setLoading] = useState(true);
+    const [music, setMusic] = useState([])
 
-    //     const myauth = getAuth();
-    //     myauth.signOut();
-
-    //     navigation.navigate("welcome");
-    // }
+    useEffect(() => {
+        const subscriber = firestore()
+          .collection('Music')
+          .onSnapshot(querySnapshot => {
+            const music = [];
+      
+            querySnapshot.forEach(documentSnapshot => {
+              music.push({
+                ...documentSnapshot.data(),
+                key: documentSnapshot.id,
+              });
+            });
+      
+            setMusic(music);
+            setLoading(false);
+          });
+      
+        // Unsubscribe from events when no longer in use
+        return () => subscriber();
+      }, []);
 
     return(
 
+        
         <View style={styles.container}>
             
             <View style={styles.heading}>
@@ -71,11 +90,11 @@ const LibraryScreen = ({navigation}) => {
 
                     <View style={styles.libraryCard}>
                         <View style = {styles.imageDiv}>
-                            <Image style={{width:75, height:75, borderRadius:15}} source={require("./Havana.jpg")}/>
+                            <Image style={{width:75, height:75, borderRadius:15}} source={require("../Components/Havana.jpg")}/>
                         </View>
                         <View style={styles.data}>
-                            <Text style = {{color:"#FFA500"}}>Album name</Text>
-                            <Text style = {{color:"#aaa"}}>No. of Songs</Text>
+                            <Text style = {{color:"#FFA500"}}>Camilla</Text>
+                            <Text style = {{color:"#aaa"}}>2</Text>
                         </View>
                     </View>
                 </TouchableOpacity>

@@ -1,9 +1,35 @@
 import {Text, View, StyleSheet, TextInput, FlatList,Image,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {list} from "./MusicList";
+import firestore from '@react-native-firebase/firestore';
+import React, {useEffect, useState} from 'react';
 import MusicCard from '../Components/MusicCard';
 
 const RecommendationScreen = ({navigation})=>{
+
+    const [loading, setLoading] = useState(true);
+    const [music, setMusic] = useState([])
+
+    useEffect(() => {
+        const subscriber = firestore()
+          .collection('Music')
+          .onSnapshot(querySnapshot => {
+            const music = [];
+      
+            querySnapshot.forEach(documentSnapshot => {
+              music.push({
+                ...documentSnapshot.data(),
+                key: documentSnapshot.id,
+              });
+            });
+      
+            setMusic(music);
+            setLoading(false);
+          });
+      
+        // Unsubscribe from events when no longer in use
+        return () => subscriber();
+      }, []);
 
     return(
         <View style={myStyles.container}>
@@ -25,15 +51,15 @@ const RecommendationScreen = ({navigation})=>{
             
                 <FlatList
                     style={myStyles.FLView}
-                    data={list}          
+                    data={music}          
                     showsVerticalScrollIndicator={false}
-                    keyExtractor={(item) => item.id.toString()}
+                    keyExtractor={(item) => item.id}
                     renderItem={({item})=>(
                         
                         <TouchableOpacity>
                         <View key={item.id} style={myStyles.rectView}>
                             <View>
-                                <Image style={{width:75, height:75, borderRadius:20}} source={require("./Havana.jpg")} />
+                                <Image style={{width:75, height:75, borderRadius:20}} source={{uri: item.artwork}} />
                             </View>
 
                             <View style={myStyles.innerRectView}>
@@ -50,22 +76,26 @@ const RecommendationScreen = ({navigation})=>{
 
                                     <View style={myStyles.likesView}>
                                         <Icon name="heart-outline" size={17} color='#FFA500' />
-                                        <Text style={myStyles.likeText}>{item.likes}</Text>
+                                        {/* <Text style={myStyles.likeText}>{item.likes}</Text> */}
+                                        <Text style={myStyles.likeText}>6k</Text>
                                     </View>
 
                                     <View style={myStyles.likesView}>
                                         <Icon name="share-social" size={17} color='#FFA500' />
-                                        <Text style={myStyles.likeText}>{item.shares}</Text>
+                                        {/* <Text style={myStyles.likeText}>{item.shares}</Text> */}
+                                        <Text style={myStyles.likeText}>2k</Text>
                                     </View>
 
                                     <View style={myStyles.likesView}>
                                         <Icon name="file-tray" size={17} color='#FFA500' />
-                                        <Text style={myStyles.likeText}>{item.comments}</Text>
+                                        {/* <Text style={myStyles.likeText}>{item.comments}</Text> */}
+                                        <Text style={myStyles.likeText}>2k</Text>
                                     </View>
 
                                     <View style={myStyles.likesView}>
                                         <Icon name="download-outline" size={17} color='#FFA500' />
-                                        <Text style={myStyles.likeText}>{item.downloads}</Text>
+                                        {/* <Text style={myStyles.likeText}>{item.downloads}</Text> */}
+                                        <Text style={myStyles.likeText}>1.1k</Text>
                                     </View>
 
                                 </View>
@@ -163,6 +193,7 @@ const myStyles = StyleSheet.create({
     searchBar:{
         borderRadius: 40, 
         paddingLeft: 15,
+        color:"black"
     },
     text1:{
         color:"white",
