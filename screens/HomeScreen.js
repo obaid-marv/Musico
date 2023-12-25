@@ -6,10 +6,16 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { Link } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 import MusicCard from '../Components/MusicCard';
+import auth from '@react-native-firebase/auth';
 
 const HomeScreen = ({navigation})=>{
 
     const screenWidth = Dimensions.get('window').width;
+    const check = ()=>{
+        auth().onAuthStateChanged((user)=>{
+        console.log(user)
+    });
+}   
     const data = [
         { key: '1', title: './Havana.jpg' },
         { key: '2', title: './Havana.jpg' },
@@ -41,7 +47,7 @@ const HomeScreen = ({navigation})=>{
 
             <View style={myStyles.upperCardsClass}>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>check()}>
                     <View style = {[myStyles.upperCard]}>
                         <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Artists</Text>

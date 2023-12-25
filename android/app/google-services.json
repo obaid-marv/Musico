@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "317083880698",
+    "project_id": "musico-6625b",
+    "storage_bucket": "musico-6625b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317083880698:android:3cc67d09b7cb901297cd43",
+        "android_client_info": {
+          "package_name": "com.musico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaGaW1amiJ1kumvxIwfMeU_4X8Of4BIXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

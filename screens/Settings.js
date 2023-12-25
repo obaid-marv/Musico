@@ -2,6 +2,7 @@ import React from 'react';
 
 import { View , StyleSheet, Pressable, Image, Button,Text, TouchableOpacity } from 'react-native';
 
+import auth from "@react-native-firebase/auth";
 
 
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -9,6 +10,14 @@ import ToggleSwitch from '../Components/ToggleSwitch';
 
 
 const Settings = ({navigation}) => {
+
+    const handleSignOut = async () => {
+        try {
+          await auth().signOut();
+        } catch (error) {
+          console.error('Error signing out:', error);
+        }
+    };
 
     return(
         <View style={styles.container}>
@@ -71,7 +80,7 @@ const Settings = ({navigation}) => {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>handleSignOut()}>
                 <Text style={[styles.settingsText,{marginLeft:10,fontSize:22,marginTop:10}]}>Log Out</Text>
                 <Text style={[styles.pText,{marginLeft:40}]}>You are Logged in as Obaid</Text>
             </TouchableOpacity>
