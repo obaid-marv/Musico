@@ -1,11 +1,12 @@
 import React, { useEffect, useState} from 'react';
 import { StyleSheet,View, Text,SafeAreaView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
-import TrackPlayer, { usePlaybackState } from 'react-native-track-player';
+import TrackPlayer, { usePlaybackState, useTrackPlayerEvents, useProgress } from 'react-native-track-player';
 import Slider from '@react-native-community/slider';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
-import TrackPlayerService from '../TrackPlayerService'
+
+
 
 const {width, height} = Dimensions.get('window');
 
@@ -15,7 +16,11 @@ const MusicPlayer = ({navigation}) => {
         const [icon2Name, setIcon2Name] = useState("pause");
         const [iconName, setIconName] = useState("heart-outline");
         const [icon1Name, setIcon1Name] = useState("repeat");
-        const [musicData, setMusicData] = useState(null);
+        const [musicData, setMusicData] = useState([]);
+        const [activeTrack, setActiveTrack] = useState({});
+        const [current,setCurrent] = useState(0);
+        const progress = useProgress();
+        
 
         const getAudioFileUrl = async (audioFileName) => {
             try {
@@ -28,16 +33,31 @@ const MusicPlayer = ({navigation}) => {
             }
         };
 
+        const getAllDocuments = async (collectionName) => {
+        try {
+            const collectionRef = firestore().collection(collectionName);
+            const querySnapshot = await collectionRef.get();
+
+            const documents = [];
+            querySnapshot.forEach((documentSnapshot) => {
+            documents.push({
+                artist: documentSnapshot.artist,
+                ...documentSnapshot.data(),
+            });
+            });
+
+            setMusicData(documents);
+        } catch (error) {
+            console.error('Error getting documents:', error);
+            throw error;
+        }
+        };
+
         const fetchMusicData = async () => {
             try {
-              const musicDoc = await firestore().collection('Music').doc("1").get();
-              if (musicDoc.exists) {
-                const data = musicDoc.data();
-                console.log(data);
-                setMusicData(data);
-              } else {
-                console.error('Music document not found');
-              }
+               await getAllDocuments("Music");
+               
+              
             } catch (error) {
               console.error('Error fetching music data:', error);
             }
@@ -49,28 +69,47 @@ const MusicPlayer = ({navigation}) => {
         },[])
 
         useEffect(() => {
-            if(musicData){
-                const startPlayback = async () => {
-                try{
+            const startPlayback = async () => {
+            try {
                 await TrackPlayer.setupPlayer({});
-                const audioFileUrl = await getAudioFileUrl(musicData?.url);
-                await TrackPlayer.add({
-                    id: musicData?.id,
+                const tracks = [];
+
+                // Loop through each track in musicData and add it to the tracks array
+                for (const track of musicData) {
+                
+                const audioFileUrl = await getAudioFileUrl(track.url);
+                tracks.push({
+                    id: track.id,
                     url: audioFileUrl,
-                    title: musicData?.title,
-                    artist: musicData?.artist,
-                    artwork: {uri : musicData?.artwork},
+                    title: track.title,
+                    artist: track.artist,
+                    artwork: {uri: track.artwork},
                 });
+                }
+
+                // Add all tracks to TrackPlayer
+                await TrackPlayer.add(tracks);
+
+                // Start playing
                 await TrackPlayer.play();
-            }
-            catch(error){
+            } catch (error) {
                 console.log(error);
             }
-                };
+            };
 
-                startPlayback();
-        }
-        }, musicData);
+            if (musicData.length > 0) {
+            startPlayback();
+            }
+        }, [musicData]);
+
+        useTrackPlayerEvents(['playback-track-changed'], async (event) => {
+            const { nextTrack } = event;
+            console.log(nextTrack);
+            if (nextTrack !== null) {
+            const track = await TrackPlayer.getTrack(nextTrack);
+            setActiveTrack(track);
+            }
+        });
 
         useEffect(() => {
 
@@ -89,7 +128,24 @@ const MusicPlayer = ({navigation}) => {
             await TrackPlayer.play();
             }
         };
+
+        const skipToNext = async () => {
+            try {
+            await TrackPlayer.skipToNext();
+            } catch (error) {
+            console.error('Error skipping to next track:', error);
+            }
+        };
+
+        const skipToPrevious = async () => {
+            try {
+            await TrackPlayer.skipToPrevious();
+            } catch (error) {
+            console.error('Error skipping to previous track:', error);
+            }
+        };
             
+
 
 
 
@@ -104,11 +160,15 @@ const MusicPlayer = ({navigation}) => {
                     <Icon name="arrow-back-sharp" size={35} color='#001f3f'/>
                 </View>
                 <View style={styles.coverWrapper}>
-                    <Image  style={styles.cover} source={require("./Havana.jpg")} />
+                    {musicData[current]?.artwork ? (
+                    <Image style={styles.cover} source={{ uri: activeTrack.artwork}} />
+                    ) : (
+                    <Text>No artwork available</Text>
+                    )}
                 </View>
                 <View>
-                    <Text style={styles.title} >Havana</Text>
-                    <Text style={styles.artist} >Camilla Cabello</Text>
+                    <Text style={styles.title} >{activeTrack.title}</Text>
+                    <Text style={styles.artist} >{activeTrack.artist}</Text>
                 
                 </View>
                 <View style={styles.likerepeat}>
@@ -134,22 +194,23 @@ const MusicPlayer = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.timerContainer}>
-                    <Text style={styles.timerText}>0:00</Text>
-                    <Text style={styles.timerText}>4:14</Text>
+                    <Text style={styles.timerText}>{progress.position}</Text>
+                    <Text style={styles.timerText}>{progress.duration}</Text>
                     
                 </View>
-                <View>
-                    <Slider 
-                    style={styles.progressContainer} 
-                    value={10}
+                <Slider
+                    style={styles.progressContainer}
+                    value={progress.position}
                     minimumValue={0}
-                    maximumValue={100}
-                    minimumTrackTintColor='#FFA500'
-                    thumbTintColor='#FFA500'
-                    maximumTrackTintColor='white'
-                    onSlidingComplete={()=>{}}
-                    />
-                </View>
+                    maximumValue={progress.duration}
+                    minimumTrackTintColor="#FFA500"
+                    thumbTintColor="#FFA500"
+                    maximumTrackTintColor="white"
+                    onSlidingComplete={(value) => {
+                    // Seek to the selected position when the user releases the slider thumb
+                    TrackPlayer.seekTo(value);
+                    }}
+                />
             </View>
 
             <View style={styles.lrcontainer}>
@@ -157,13 +218,13 @@ const MusicPlayer = ({navigation}) => {
             </View>
             <View style={styles.controlsContainer}>
                 <View style={styles.control}>
-                    <TouchableOpacity onPress={()=>{}}>
+                    <TouchableOpacity onPress={()=>{skipToPrevious()}}>
                         <Icon name="play-skip-back" size={30} color='#FFA500'/>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=> {togglePlayback()}}>
                         <Icon name={icon2Name} size={50} color='#FFA500'></Icon>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{}}>
+                    <TouchableOpacity onPress={()=>{skipToNext()}}>
                         <Icon name="play-skip-forward" size={30} color='#FFA500'/>
                     </TouchableOpacity>
                 </View>
