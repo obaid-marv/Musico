@@ -9,6 +9,8 @@ import LaunchScreen from './screens/LaunchScreen';
 import RecommendationScreen from './screens/RecommendationScreen';
 import EditScreen from './screens/EditScreen';
 import Settings from './screens/Settings';
+import MusicPlayer from './screens/MusicPlayer';
+import MusicCard from './Components/MusicCard';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,9 @@ const App = () => {
         <Stack.Screen name="Main" component={BottomTabNavigator} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={SignUp} />
+        <Stack.Screen name="MusicCard" component={MusicCard} />
+        <Stack.Screen name="MusicPlayer" component={MusicPlayer} />
+        
         <Stack.Screen name="Recommended" component={RecommendationScreen} />
       </Stack.Navigator>
     </NavigationContainer>

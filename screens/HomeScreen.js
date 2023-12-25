@@ -103,7 +103,7 @@ const HomeScreen = ({navigation})=>{
                 
             </View>
 
-            <MusicCard/>
+            <MusicCard navigation={navigation}/>
 
         </View>
     

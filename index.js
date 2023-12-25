@@ -17,7 +17,14 @@ import RecommendationScreen from './screens/RecommendationScreen.js';
 import MusicCard from './Components/MusicCard.js';
 import MusicPlayer from './screens/MusicPlayer.js';
 import PopularScreen from './screens/PopularScreen.js';
+import TestScreen from './screens/TestScreen.js';
+import TrackPlayer from 'react-native-track-player';
 
 
 AppRegistry.registerComponent(appName, () => App);
+
+if (!TrackPlayer) {
+    TrackPlayer.setupPlayer({});
+    TrackPlayer.registerPlaybackService(() => require('./services.js'));
+  }
 

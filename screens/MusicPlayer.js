@@ -1,47 +1,95 @@
 import React, { useEffect, useState} from 'react';
 import { StyleSheet,View, Text,SafeAreaView, TouchableOpacity, Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import TrackPlayer, { usePlaybackState } from 'react-native-track-player';
 import Slider from '@react-native-community/slider';
-
-// const design = require("../../design");
-// const data = require("./Data");
-
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+import TrackPlayerService from '../TrackPlayerService'
 
 const {width, height} = Dimensions.get('window');
 
 const MusicPlayer = ({navigation}) => {
+    const playbackState = usePlaybackState();
 
-    // const arr = data.default;
+        const [icon2Name, setIcon2Name] = useState("pause");
+        const [iconName, setIconName] = useState("heart-outline");
+        const [icon1Name, setIcon1Name] = useState("repeat");
+        const [musicData, setMusicData] = useState(null);
 
-    const [iconName, setIconName] = useState("heart-outline");
-    const [icon1Name, setIcon1Name] = useState("repeat");
-    const [icon2Name, setIcon2Name] = useState("pause");
-    const [currentSong, setCurrentSong] = useState(0);
-    const [currentImg, setCurrentImg] = useState(null);
+        const getAudioFileUrl = async (audioFileName) => {
+            try {
+            const ref = storage().ref(audioFileName);
+            const url = await ref.getDownloadURL();
+            return url;
+            } catch (error) {
+            console.error('Error getting audio file URL:', error);
+            throw error;
+            }
+        };
 
-        const id = currentSong.id;
-        
-        // function moveForward(){
+        const fetchMusicData = async () => {
+            try {
+              const musicDoc = await firestore().collection('Music').doc("1").get();
+              if (musicDoc.exists) {
+                const data = musicDoc.data();
+                console.log(data);
+                setMusicData(data);
+              } else {
+                console.error('Music document not found');
+              }
+            } catch (error) {
+              console.error('Error fetching music data:', error);
+            }
+          };
 
+        useEffect(()=>{
+
+            fetchMusicData();
+        },[])
+
+        useEffect(() => {
+            if(musicData){
+                const startPlayback = async () => {
+                try{
+                await TrackPlayer.setupPlayer({});
+                const audioFileUrl = await getAudioFileUrl(musicData?.url);
+                await TrackPlayer.add({
+                    id: musicData?.id,
+                    url: audioFileUrl,
+                    title: musicData?.title,
+                    artist: musicData?.artist,
+                    artwork: {uri : musicData?.artwork},
+                });
+                await TrackPlayer.play();
+            }
+            catch(error){
+                console.log(error);
+            }
+                };
+
+                startPlayback();
+        }
+        }, musicData);
+
+        useEffect(() => {
+
+            if (playbackState.state === "playing") {
+            setIcon2Name('pause');
+            } else {
+            setIcon2Name('play');
+            }
+        }, [playbackState]);
+
+        const togglePlayback = async () => {
+
+            if (playbackState.state === "playing") {
+            await TrackPlayer.pause();
+            } else {
+            await TrackPlayer.play();
+            }
+        };
             
-        //     if(currentSong.id == arr.length-1){
-        //         setCurrentSong(arr[0]);
-        //         setCurrentImg(arr[0].image);
-        //     }
-        //     if(currentSong.id < arr.length-1){
-        //         setCurrentSong(arr[id+1]);
-        //         setCurrentImg(arr[id+1].image);
-        //     }
-        // }
-        
-        // function moveBackwoard(){
-        //     if(currentSong.id == 0){
-        //     }else{
-        //         setCurrentSong(arr[currentSong.id-1]);
-        //         setCurrentImg(arr[currentSong.id-1].image);
-        //     }
-        // }
 
 
 
@@ -49,7 +97,7 @@ const MusicPlayer = ({navigation}) => {
         <SafeAreaView style={styles.newcontainer}>
             <View style={styles.mainContainer}>
                 <View style={styles.upperContainer}>
-                    <TouchableOpacity onPress={()=> {}}>
+                    <TouchableOpacity onPress={()=> {navigation.navigate("Main")}}>
                     <Icon name="arrow-back-sharp" size={35} color='#ffff'/>
                     </TouchableOpacity>
                     <Text style={styles.title}>Now Playing</Text>
@@ -59,14 +107,14 @@ const MusicPlayer = ({navigation}) => {
                     <Image  style={styles.cover} source={require("./Havana.jpg")} />
                 </View>
                 <View>
-                    <Text style={styles.title} >{currentSong.Name}</Text>
-                    <Text style={styles.artist} >{currentSong.Artist}</Text>
+                    <Text style={styles.title} >Havana</Text>
+                    <Text style={styles.artist} >Camilla Cabello</Text>
                 
                 </View>
                 <View style={styles.likerepeat}>
                     <TouchableOpacity onPress={()=>{
                         if(icon1Name=="repeat"){
-                            setIcon1Name("repeat-one");
+                            setIcon1Name("infinite");
                         }
                         if(icon1Name=="repeat-one"){
                             setIcon1Name("repeat");
@@ -87,7 +135,7 @@ const MusicPlayer = ({navigation}) => {
                 </View>
                 <View style={styles.timerContainer}>
                     <Text style={styles.timerText}>0:00</Text>
-                    <Text style={styles.timerText}>{currentSong.duration}</Text>
+                    <Text style={styles.timerText}>4:14</Text>
                     
                 </View>
                 <View>
@@ -110,20 +158,13 @@ const MusicPlayer = ({navigation}) => {
             <View style={styles.controlsContainer}>
                 <View style={styles.control}>
                     <TouchableOpacity onPress={()=>{}}>
-                        <Icon name="stepbackward" size={30} color='#FFA500'/>
+                        <Icon name="play-skip-back" size={30} color='#FFA500'/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=> {
-                        if(icon2Name=="pause"){
-                            setIcon2Name("play");
-                        }
-                        if(icon2Name=="play"){
-                            setIcon2Name("pause");
-                        }
-                    }}>
+                    <TouchableOpacity onPress={()=> {togglePlayback()}}>
                         <Icon name={icon2Name} size={50} color='#FFA500'></Icon>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{}}>
-                        <Icon name="stepforward" size={30} color='#FFA500'/>
+                        <Icon name="play-skip-forward" size={30} color='#FFA500'/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -198,7 +239,7 @@ const styles = StyleSheet.create({
         color:'#FFA500',
         textAlign: 'center',
         fontSize: 15,
-        fontWeight:'60',
+        fontWeight:"bold"
     },
     progressContainer:{
         marginTop:70,

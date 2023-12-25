@@ -3,10 +3,10 @@ import { View, StyleSheet, Image, Pressable, Text, TouchableOpacity } from 'reac
 import Icon from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather'
 
-const MusicCard = () => {
+const MusicCard = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Pressable style={styles.pressableContainer}>
+      <Pressable style={styles.pressableContainer} onPress={()=>navigation.navigate("MusicPlayer")}>
         <View style={styles.imgView}>
           <Image style={styles.img} source={require("./Havana.jpg")} />
           <View style={styles.textContainer}>
