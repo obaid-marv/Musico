@@ -1,10 +1,11 @@
 
-import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, Image } from 'react-native';
+import { View , StyleSheet, StatusBar, Text, TouchableOpacity, Image } from 'react-native';
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import Icon from 'react-native-vector-icons/Ionicons'
 import MusicCard from '../Components/MusicCard';
 import React, {useEffect, useState} from 'react';
+import Toast from 'react-native-simple-toast'
 import firestore from '@react-native-firebase/firestore';
 // import {getAuth}  from 'firebase/auth';
 
@@ -36,11 +37,11 @@ const LibraryScreen = ({navigation}) => {
 
     return(
 
-        
         <View style={styles.container}>
-            
+            <StatusBar backgroundColor={"#001f3f"}/>
+
             <View style={styles.heading}>
-                <TouchableOpacity style={{flex:1, left:18}}>
+                <TouchableOpacity style={{flex:1, left:18}} onPress={()=>Toast.show("Use the Botton Tabs !! , This is just for show", Toast.SHORT)}>
 
                 <Icon name='arrow-back' size={35} color= "#A6A6A6" />
                 </TouchableOpacity>
@@ -52,29 +53,28 @@ const LibraryScreen = ({navigation}) => {
  
             <View style={styles.upperCardsClass}>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>Toast.show("Artists are: Camila, Eminem, Becky G, Imran Khan, Arjit Singh, Imagine Dragons, Javed Bashir",Toast.LONG)}>
                     <View style = {[styles.upperCard]}>
                         <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
                         <Text style={[styles.colorWhite,  styles.smallFonts] }>Artists</Text>
                     </View>
                 </TouchableOpacity>
 
-            
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>Toast.show("Not that many albums",Toast.SHORT)}>
                     <View style = {[styles.upperCard]}>
                         <Icon name='disc-outline' size={35} color="#FFA500" />
                         <Text style={[styles.colorWhite,  styles.smallFonts] }>Albums</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
 
+                <TouchableOpacity onPress={()=>Toast.show("Why do you need a playlist ?",Toast.SHORT)}>
                     <View style = {[styles.upperCard]}>
                     <SimpleLineIcons name='playlist' size={35} color="#FFA500" />   
                         <Text style={[styles.colorWhite,  styles.smallFonts] }>Playlists</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
 
+                <TouchableOpacity onPress={()=>{Toast.show("ALL TYPES", Toast.SHORT)}}>
                     <View style = {[styles.upperCard]}>
                         <Icon name='musical-notes-outline' size={35} color="#FFA500" />
                         <Text style={[styles.colorWhite,  styles.smallFonts] }>Genre</Text>

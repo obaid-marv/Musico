@@ -1,9 +1,10 @@
-import {Text, View, StyleSheet, TextInput, FlatList,Image,TouchableOpacity} from 'react-native'
+import {Text, View, StyleSheet, StatusBar,TextInput, FlatList,Image,TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {list} from "./MusicList";
 import firestore from '@react-native-firebase/firestore';
 import React, {useEffect, useState} from 'react';
 import MusicCard from '../Components/MusicCard';
+import Toast from 'react-native-simple-toast'
 
 const RecommendationScreen = ({navigation})=>{
 
@@ -33,6 +34,8 @@ const RecommendationScreen = ({navigation})=>{
 
     return(
         <View style={myStyles.container}>
+            <StatusBar backgroundColor={"#001f3f"}/>
+
             <View style={myStyles.header}>
                     <TouchableOpacity onPress={()=>navigation.navigate("Music")}>
                     <Text style={myStyles.text1}>Music</Text>
@@ -41,9 +44,9 @@ const RecommendationScreen = ({navigation})=>{
                     
             </View>
             <View style={myStyles.searchBarView}>
-                    <View style={myStyles.searchIcon}>
+                    <TouchableOpacity style={myStyles.searchIcon} onPress={Toast.show("List not big enough to use search.", Toast.SHORT)}>
                         <Icon name='search' size={35} color= "grey"/>
-                    </View>
+                    </TouchableOpacity>
                     <TextInput style={myStyles.searchBar} placeholder='Search for artists, songs and genre' placeholderTextColor={"grey"}></TextInput>
             </View>
 
@@ -56,7 +59,7 @@ const RecommendationScreen = ({navigation})=>{
                     keyExtractor={(item) => item.id}
                     renderItem={({item})=>(
                         
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={Toast.show("Just enjoy the touch ;)", Toast.SHORT)}>
                         <View key={item.id} style={myStyles.rectView}>
                             <View>
                                 <Image style={{width:75, height:75, borderRadius:20}} source={{uri: item.artwork}} />

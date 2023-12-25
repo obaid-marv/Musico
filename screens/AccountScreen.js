@@ -1,4 +1,4 @@
-import {Text, View, Pressable, StyleSheet, Image, TouchableOpacity, TextInput} from "react-native"
+import {Text, View, Pressable, StatusBar,StyleSheet, Image, TouchableOpacity, TextInput} from "react-native"
 import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -62,9 +62,11 @@ const AccountScreen =({navigation})=> {
 
     return(
         <View style={myStyles.container}>
+            <StatusBar backgroundColor={"#001f3f"}/>
+
             <View style={myStyles.header}>
 
-            <TouchableOpacity style={myStyles.backButton} >
+            <TouchableOpacity style={myStyles.backButton} onPress={Toast.show("Use the Botton Tabs !! , This is just for show",Toast.SHORT)}>
                 <Icon name='arrow-back' size={35} color= "#A6A6A6" />
             </TouchableOpacity>
 
@@ -110,7 +112,7 @@ const AccountScreen =({navigation})=> {
                     </View>
                 </TouchableOpacity>
 
-                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('Language is English', Toast.SHORT)}>
+                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('Language is English. No need for other language', Toast.SHORT)}>
                     <Feather style={myStyles.leftIcon} name="globe" size={23} color={"black"}/>
                     <Text style={myStyles.lowerTexts}>Language</Text>
                     <View style={myStyles.rightIcon}>
@@ -118,7 +120,7 @@ const AccountScreen =({navigation})=> {
                     </View>
                 </Pressable>
                 
-                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('No need to contact us', Toast.SHORT)}>
+                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('No need to contact us !!!', Toast.SHORT)}>
                     <MaterialCommunityIcons style={myStyles.leftIcon} name="message-outline" size={23} color={"black"}/>
                     <Text style={myStyles.lowerTexts}>Contact Us</Text>
                     <View style={myStyles.rightIcon}>
@@ -126,7 +128,7 @@ const AccountScreen =({navigation})=> {
                     </View>
                 </Pressable>
 
-                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('Nothing here', Toast.SHORT)}>
+                <Pressable style={myStyles.pressableView} onPress={()=>Toast.show('NO QUESTIONS ASKED HERE', Toast.SHORT)}>
                     <SimpleLineIcons style={myStyles.leftIcon} name="question" size={23} color={"black"}/>
                     <Text style={myStyles.lowerTexts}>FAQS</Text>
                     <View style={myStyles.rightIcon}>

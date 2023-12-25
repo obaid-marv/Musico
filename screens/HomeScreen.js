@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { ActivityIndicator,View , StyleSheet, Button, Text, TouchableOpacity, TextInput, FlatList,Image, Dimensions } from 'react-native';
+import { ActivityIndicator,View ,StatusBar, StyleSheet, Button, Text, TouchableOpacity, TextInput, FlatList,Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
@@ -7,6 +7,7 @@ import { Link } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 import MusicCard from '../Components/MusicCard';
 import auth from '@react-native-firebase/auth';
+import Toast from "react-native-simple-toast"
 import firestore from '@react-native-firebase/firestore';
 
 
@@ -52,7 +53,7 @@ const HomeScreen = ({navigation})=>{
       ];
     //   console.log(music.artist)
       const renderItem = ({ item }) => (
-        <TouchableOpacity style={myStyles.hotTouch}>
+        <TouchableOpacity style={myStyles.hotTouch} onPress={Toast.show("It will not play, enjoy the scrolling for now :)",Toast.SHORT)}>
             <Image style={[myStyles.himg, { width: screenWidth / 3 }]} source={{uri: item.artwork}}
             />
             <Text style={myStyles.imgText}>{item.title}</Text>
@@ -60,6 +61,7 @@ const HomeScreen = ({navigation})=>{
       );
     return(
         <View style={myStyles.container}>
+            <StatusBar backgroundColor={"#001f3f"}/>
             <View style={myStyles.header}>
                     <Text style={myStyles.text1}>Music</Text>
                     <TouchableOpacity onPress={()=>navigation.navigate("Recommended")}>
@@ -67,7 +69,7 @@ const HomeScreen = ({navigation})=>{
                     </TouchableOpacity>
             </View>
             <View style={myStyles.searchBarView}>
-                    <TouchableOpacity style={myStyles.searchIcon}>
+                    <TouchableOpacity style={myStyles.searchIcon} onPress={Toast.show("List not big enough to use search.", Toast.SHORT)}>
                         <Icon name='search' size={35} color= "grey"/>
                     </TouchableOpacity>
                     <TextInput style={myStyles.searchBar} placeholder='Search for artists, songs and genre' placeholderTextColor={"grey"}></TextInput>
@@ -75,29 +77,28 @@ const HomeScreen = ({navigation})=>{
 
             <View style={myStyles.upperCardsClass}>
 
-                <TouchableOpacity onPress={()=>check()}>
+                <TouchableOpacity onPress={()=>{check(); Toast.show("Artists are: Camila, Eminem, Becky G, Imran Khan, Arjit Singh, Imagine Dragons, Javed Bashir", Toast.LONG)}} >
                     <View style = {[myStyles.upperCard]}>
                         <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Artists</Text>
                     </View>
                 </TouchableOpacity>
 
-                
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>Toast.show("Not that many albums",Toast.SHORT)}>
                     <View style = {[myStyles.upperCard]}>
                         <Icon name='disc-outline' size={35} color="#FFA500" />
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Albums</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
 
+                <TouchableOpacity onPress={()=>Toast.show("Why do you need a playlist ?",Toast.SHORT)}>
                     <View style = {[myStyles.upperCard]}>
                     <SimpleLineIcons name='playlist' size={35} color="#FFA500" />   
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Playlists</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
 
+                <TouchableOpacity onPress={()=>{Toast.show("ALL TYPES", Toast.SHORT)}}>
                     <View style = {[myStyles.upperCard]}>
                         <Icon name='musical-notes-outline' size={35} color="#FFA500" />
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Genre</Text>
@@ -265,6 +266,7 @@ const myStyles = StyleSheet.create({
     hotTouch:{
         marginLeft:5,
         height:70,
+        marginHorizontal:5
         // backgroundColor:"purple"
     },
 

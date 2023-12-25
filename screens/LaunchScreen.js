@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import {Text,Image,StyleSheet,View} from 'react-native'
+import {Text,Image,StyleSheet,View, StatusBar} from 'react-native'
 
 const LaunchScreen = ({navigation})=>{
     useEffect(()=>{
@@ -7,7 +7,7 @@ const LaunchScreen = ({navigation})=>{
     },[]);
     return(
         <View style={myStyles.container}>
-
+            <StatusBar backgroundColor={"#001f3f"}/>
             <Image style={myStyles.imageView} source={require("../Components/MusicoIcon.png")}/>
 
             <Text style={myStyles.textStyle}>Musico</Text>
