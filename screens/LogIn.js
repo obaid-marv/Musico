@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 // import { signInWithEmailAndPassword, getAuth} from "firebase/auth"
@@ -11,15 +11,21 @@ const Login = ({navigation}) => {
 // const auth = getAuth();
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [isLoginButtonDisabled, setLoginButtonDisabled] = useState(true)
 
     const loginUser = async () => {
         try {
-            if(!email || email.trim() === ""){
-                Toast.show("Email field is empty!!", Toast.SHORT)
-            } 
-            else if(!password || password.trim() === ""){
-                Toast.show("Password field is empty!!", Toast.SHORT)
-            } 
+            // if(!email || email.trim() === ""){
+            //     Toast.show("Email field is empty!!", Toast.SHORT)
+            // } 
+            // else if(!password || password.trim() === ""){    
+            //     Toast.show("Password field is empty!!", Toast.SHORT)
+            // } 
+            if (!isEmailValid(email)) {
+                Toast.show("Invalid email format", Toast.SHORT);
+            } else if (!isPasswordValid(password)) {
+                Toast.show("Password length 8-15 characters and one capital letter", Toast.SHORT);
+            }
             else{
             const userCredential = await auth().signInWithEmailAndPassword(email, password);
             console.log('User logged in:', userCredential.user);
@@ -36,6 +42,21 @@ const Login = ({navigation}) => {
             }
         }       
       };
+
+    const isEmailValid = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const isPasswordValid = (password) => {
+        return password.length >= 8 && password.length <= 15 && /[A-Z]/.test(password);
+    };
+
+    useEffect(() => {
+        setLoginButtonDisabled(!email || !password || email.trim() === "" || password.trim() === "");
+    }, [email, password]);
+
+
    
     return(
         <View style={styles.container}>
@@ -51,7 +72,7 @@ const Login = ({navigation}) => {
                 <Text style={styles.pTextPass} >Forgot password?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>loginUser()}>
+            <TouchableOpacity onPress={()=>loginUser()} disabled={isLoginButtonDisabled}>
                 <Text style={styles.btn}>Login</Text>
             </TouchableOpacity>
 

@@ -1,38 +1,74 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, Pressable, ToastAndroid,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 // import {firebase} from "../../../Firebase";
 // import auth, {createUserWithEmailAndPassword, getAuth} from "firebase/auth"
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import Toast from "react-native-simple-toast"
+
 
 const SignUp = ({navigation}) => {
     
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [firstName, setFirstName] = useState(null);
-    const [phoneNo , setPhoneNo] = useState(null);
-
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [phoneNo , setPhoneNo] = useState('');
+    const [isSignUpButtonDisabled, setSignUpButtonDisabled] = useState(true)
 
     const handleSignUp = async () => {
         try {
-          // Step 1: Create user in Firebase Authentication
-          const { user } = await auth().createUserWithEmailAndPassword(email, password);
+            if (!isNameValid(firstName)) {
+                Toast.show("Invalid Username Format, Sample: abc12", Toast.SHORT);
+            } else if(!isEmailValid(email)){
+                Toast.show("Invalid Email Format, Sample: abc@gmail.com", Toast.SHORT);
+            } else if(!isphoneValid(phoneNo)){
+                Toast.show("Invalid Phone Format, Should start with 03 and total numbers 11", Toast.SHORT);
+            } else if (!isPasswordValid(password)) {
+                Toast.show("Password length 8-15 characters and one capital letter", Toast.SHORT);
+            }
+            else{
+                // Step 1: Create user in Firebase Authentication
+                  const { user } = await auth().createUserWithEmailAndPassword(email, password);
+          
+                // Step 2: Create user document in Firestore
+                  await firestore().collection('users').doc(user.uid).set({
+                      email,
+                      firstName,
+                      phoneNo,
+                  });
+                  console.log('User created:', user);
+                  navigation.navigate("Main")
+            }
     
-          // Step 2: Create user document in Firestore
-          await firestore().collection('users').doc(user.uid).set({
-            email,
-            firstName,
-            phoneNo,
-          });
-    
-          console.log('User created:', user);
-          navigation.navigate("Main")
         } catch (error) {
-          console.error('Error creating user:', error);
+            console.error('Error creating user:', error);
+            alert(error.message);
         }
       };
     
+    const isEmailValid = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const isPasswordValid = (password) => {
+        return password.length >= 8 && password.length <= 15 && /[A-Z]/.test(password);
+    };
+
+    const isNameValid = (firstName)=>{
+        const usernameRegex = /^[a-zA-Z]{3}[a-zA-Z0-9_]{0,12}$/;
+        return usernameRegex.test(firstName)
+    };
+
+    const isphoneValid = (phoneNo) => {
+        const phoneRegex = /^03\d{9}$/;
+        return phoneRegex.test(phoneNo);
+    }
+
+    useEffect(() => {
+        setSignUpButtonDisabled(!email || !password || !firstName || !phoneNo || email.trim() === "" || password.trim() === "" || firstName.trim() ==="" || phoneNo.trim() === "");
+    }, [email, password, firstName,phoneNo]);
 
     return(
         <View style={styles.container}>
@@ -46,7 +82,7 @@ const SignUp = ({navigation}) => {
             <TextInput style={styles.inputs} value={email} onChangeText={text => setEmail(text)} placeholderTextColor="#FFA500" placeholder='Enter your email' />
             <TextInput style={styles.inputs} value={phoneNo} onChangeText={text => setPhoneNo(text)}  placeholderTextColor="#FFA500" placeholder='Enter your Phone Number' />
             <TextInput style={styles.inputs} secureTextEntry value={password} onChangeText={text => setPassword(text)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
-            <TouchableOpacity onPress={()=>{handleSignUp()}}>  
+            <TouchableOpacity onPress={()=>{handleSignUp()}} disabled={isSignUpButtonDisabled} >  
                 <Text style={styles.btn}>Sign Up</Text>
             </TouchableOpacity>
 
