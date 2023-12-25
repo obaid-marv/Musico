@@ -1,60 +1,64 @@
-import {Text, View, Image, Pressable, StyleSheet, TextInput, TouchableOpacity} from 'react-native'
+import {Text, View, Image, Pressable, StyleSheet, TextInput, TouchableOpacity,KeyboardAvoidingView,Platform} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { KeyboardAvoidingView } from 'react-native'
 
 const EditScreen = ({navigation})=>{
     return(
         <View style={myStyles.container}>
+            <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex:1,width:"100%"}}
+            >
 
-            <View style={myStyles.yellowView}>
-                <View style={myStyles.header}>
-                    <TouchableOpacity onPress={()=>navigation.pop()}>
-                        <Icon style={{marginLeft:10}} name='arrow-back' size={35} color= "black" />
+                <View style={myStyles.yellowView}>
+                    <View style={myStyles.header}>
+                        <TouchableOpacity onPress={()=>navigation.pop()}>
+                            <Icon style={{marginLeft:10}} name='arrow-back' size={35} color= "black" />
+                        </TouchableOpacity>
+                        <Text style={myStyles.headerText}>Edit Profile</Text>
+                        <TouchableOpacity>
+                        <Icon style={{marginRight:15}} name="share-social-outline" size={28} color={"black"} />
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Image in yellowView */}
+                    <Image style={myStyles.imgStyleYellow} source={require("../Components/Profile1.png")} />
+                </View>
+
+                {/* <Image style={myStyles.imgStyle} source={require("../Components/Profile.png")}/> */}
+
+                <View style={myStyles.blueView}>
+                    {/* Image in blueView */}
+                    <Image style={myStyles.imgStyleBlue} source={require("../Components/Profile1.png")} />
+
+                    <TouchableOpacity style={{marginTop:50, marginBottom:10}}>
+                        <Text>Change Picture</Text>
                     </TouchableOpacity>
-                    <Text style={myStyles.headerText}>Edit Profile</Text>
-                    <TouchableOpacity>
-                    <Icon style={{marginRight:15}} name="share-social-outline" size={28} color={"black"} />
+
+                    <View style={myStyles.textWrap}>
+                    <Text style={myStyles.textStyle}>Username</Text>
+                    </View>
+                    <TextInput style={myStyles.inputStyle}  placeholder='Zaki098' placeholderTextColor={"grey"}/> 
+
+                    <View style={myStyles.textWrap}>
+                    <Text style={myStyles.textStyle}>Email Id</Text>
+                    </View>
+                    <TextInput style={myStyles.inputStyle} placeholder='zaki098@gmail.com' placeholderTextColor={"grey"} />
+
+                    <View style={myStyles.textWrap}>
+                    <Text style={myStyles.textStyle}>Phone Number</Text>
+                    </View>
+                    <TextInput style={myStyles.inputStyle} placeholder='+92398788999' placeholderTextColor={"grey"}/>
+
+                    <View style={myStyles.textWrap}>
+                    <Text style={myStyles.textStyle}>Password</Text>
+                    </View>
+                    <TextInput style={myStyles.inputStyle} secureTextEntry={true} placeholder='AsDfGhJkL' placeholderTextColor={"grey"}/>
+
+                    <TouchableOpacity style={myStyles.updateBtn}>
+                        <Text style={myStyles.updateText}>Update</Text>
                     </TouchableOpacity>
                 </View>
-
-                {/* Image in yellowView */}
-                <Image style={myStyles.imgStyleYellow} source={require("../Components/Profile1.png")} />
-            </View>
-
-            {/* <Image style={myStyles.imgStyle} source={require("../Components/Profile.png")}/> */}
-
-            <View style={myStyles.blueView}>
-                {/* Image in blueView */}
-                <Image style={myStyles.imgStyleBlue} source={require("../Components/Profile1.png")} />
-
-                <TouchableOpacity style={{marginTop:50, marginBottom:10}}>
-                    <Text>Change Picture</Text>
-                </TouchableOpacity>
-
-                <View style={myStyles.textWrap}>
-                <Text style={myStyles.textStyle}>Username</Text>
-                </View>
-                <TextInput style={myStyles.inputStyle}  placeholder='Zaki098' placeholderTextColor={"grey"}/> 
-
-                <View style={myStyles.textWrap}>
-                <Text style={myStyles.textStyle}>Email Id</Text>
-                </View>
-                <TextInput style={myStyles.inputStyle} placeholder='zaki098@gmail.com' placeholderTextColor={"grey"} />
-
-                <View style={myStyles.textWrap}>
-                <Text style={myStyles.textStyle}>Phone Number</Text>
-                </View>
-                <TextInput style={myStyles.inputStyle} placeholder='+92398788999' placeholderTextColor={"grey"}/>
-
-                <View style={myStyles.textWrap}>
-                <Text style={myStyles.textStyle}>Password</Text>
-                </View>
-                <TextInput style={myStyles.inputStyle}  placeholder='AsDfGhJkL' placeholderTextColor={"grey"}/>
-
-                <TouchableOpacity style={myStyles.updateBtn}>
-                    <Text style={myStyles.updateText}>Update</Text>
-                </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         </View>
     )
 }

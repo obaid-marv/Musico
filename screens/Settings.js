@@ -80,6 +80,7 @@ const Settings = ({navigation}) => {
                 </TouchableOpacity>
             </View>
 
+
             <TouchableOpacity onPress={()=>handleSignOut()}>
                 <Text style={[styles.settingsText,{marginLeft:10,fontSize:22,marginTop:10}]}>Log Out</Text>
                 <Text style={[styles.pText,{marginLeft:40}]}>You are Logged in as Obaid</Text>

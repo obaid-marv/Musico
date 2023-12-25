@@ -100,14 +100,10 @@ const HomeScreen = ({navigation})=>{
 
                     
                 </View>
-                <MusicCard/>
-
-                
-            
-
-            
                 
             </View>
+
+            <MusicCard/>
 
         </View>
     
