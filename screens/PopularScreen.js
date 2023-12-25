@@ -3,13 +3,40 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Toast from 'react-native-simple-toast';
 import { list } from './MusicList';
 import MusicCard from '../Components/MusicCard';
-
+import firestore from '@react-native-firebase/firestore';
+import React, {useEffect, useState} from 'react';
 
 const PopularScreen = (navigation)=>{
 
     const showMsg = ()=>{
         Toast.show('Back Button Pressed', Toast.SHORT);
     }
+
+    const [loading, setLoading] = useState(true);
+    const [music, setMusic] = useState([])
+
+    useEffect(() => {
+        const subscriber = firestore()
+          .collection('Music')
+          .onSnapshot(querySnapshot => {
+            const music = [];
+      
+            querySnapshot.forEach(documentSnapshot => {
+              music.push({
+                ...documentSnapshot.data(),
+                key: documentSnapshot.id,
+              });
+            });
+      
+            setMusic(music);
+            setLoading(false);
+          });
+      
+        // Unsubscribe from events when no longer in use
+        return () => subscriber();
+    }, []);
+
+
     return(
         <View style={myStyles.container}>
             <View style={myStyles.header}>
@@ -29,11 +56,11 @@ const PopularScreen = (navigation)=>{
             style={myStyles.FLView}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            data={list}
-            keyExtractor={(item) => item.id.toString()}
+            data={music}
+            keyExtractor={(item) => item.id}
             renderItem={({item})=>(
                 <View>
-                    <Image style={myStyles.imgStyle} source={require("../Components/Havana.jpg")}/>
+                    <Image style={myStyles.imgStyle} source={{uri:item.artwork}}/>
                     <Text style={myStyles.titleText}>{item.title}</Text>
                     <Text style={myStyles.artistText}>{item.artist}</Text>
                 </View>
@@ -48,11 +75,11 @@ const PopularScreen = (navigation)=>{
             style={myStyles.FLView}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            data={list}
-            keyExtractor={(item) => item.id.toString()}
+            data={music}
+            keyExtractor={(item) => item.id}
             renderItem={({item})=>(
                 <View>
-                    <Image style={myStyles.imgStyle} source={require("../Components/Havana.jpg")}/>
+                    <Image style={myStyles.imgStyle} source={{ uri: item.artwork}}/>
                     <Text style={myStyles.titleText}>{item.title}</Text>
                     <Text style={myStyles.artistText}>{item.artist}</Text>
                 </View>
