@@ -1,5 +1,5 @@
-import React from 'react';
-import { View , StyleSheet, Button, Text, TouchableOpacity, TextInput, FlatList,Image, Dimensions } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import { ActivityIndicator,View , StyleSheet, Button, Text, TouchableOpacity, TextInput, FlatList,Image, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
@@ -7,15 +7,42 @@ import { Link } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 import MusicCard from '../Components/MusicCard';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 
 const HomeScreen = ({navigation})=>{
 
+    const [loading, setLoading] = useState(true);
+    const [music, setMusic] = useState([])
     const screenWidth = Dimensions.get('window').width;
     const check = ()=>{
         auth().onAuthStateChanged((user)=>{
-        console.log(user)
-    });
-}   
+            console.log(user)
+        });
+    }   
+
+    useEffect(() => {
+        const subscriber = firestore()
+          .collection('Music')
+          .onSnapshot(querySnapshot => {
+            const music = [];
+      
+            querySnapshot.forEach(documentSnapshot => {
+              music.push({
+                ...documentSnapshot.data(),
+                key: documentSnapshot.id,
+              });
+            });
+      
+            setMusic(music);
+            setLoading(false);
+          });
+      
+        // Unsubscribe from events when no longer in use
+        return () => subscriber();
+      }, []);
+
+    //   console.log(music);
     const data = [
         { key: '1', title: './Havana.jpg' },
         { key: '2', title: './Havana.jpg' },
@@ -23,11 +50,12 @@ const HomeScreen = ({navigation})=>{
         { key: '4', title: './Havana.jpg' },
         // Add more items as needed
       ];
-
+    //   console.log(music.artist)
       const renderItem = ({ item }) => (
         <TouchableOpacity style={myStyles.hotTouch}>
-            <Image style={[myStyles.himg, { width: screenWidth / 3 }]} source={require('./Havana.jpg')}/>
-            <Text style={myStyles.imgText}>Havana</Text>
+            <Image style={[myStyles.himg, { width: screenWidth / 3 }]} source={{uri: item.artwork}}
+            />
+            <Text style={myStyles.imgText}>{item.title}</Text>
         </TouchableOpacity>
       );
     return(
@@ -83,8 +111,9 @@ const HomeScreen = ({navigation})=>{
                 <Text style={myStyles.bold}>HotList</Text>
                 <View style={myStyles.hotList}>
                 <FlatList
-                data={data}
+                data={music}
                 horizontal
+                showsHorizontalScrollIndicator={false}
                 renderItem={renderItem}
                 keyExtractor={item => item.key}
                 />
@@ -92,8 +121,9 @@ const HomeScreen = ({navigation})=>{
                 <Text style={myStyles.bold}>New Releases</Text>
                 <View style={myStyles.hotList}>
                 <FlatList
-                data={data}
+                data={music}
                 horizontal
+                showsHorizontalScrollIndicator={false}
                 renderItem={renderItem}
                 keyExtractor={item => item.key}
                 />    
@@ -151,6 +181,8 @@ const myStyles = StyleSheet.create({
     searchBar:{
         borderRadius: 40, 
         paddingLeft: 15,
+        color:"black"
+        
     },
     text1:{
         color:"#FFA500",
