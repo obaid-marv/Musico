@@ -103,7 +103,7 @@ const SignUp = ({navigation}) => {
                 <TextInput style={styles.inputs} secureTextEntry={!isPasswordVisible} value={password} onChangeText={text => setPassword(text)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
                 <TouchableOpacity style={styles.showPasswordIcon} onPress={() => handlePasswordVisibility()}>
                     <MaterialCommunityIcons
-                        name={isPasswordVisible ? 'eye-off' : 'eye'}
+                        name={isPasswordVisible ? 'eye' : 'eye-off'}
                         size={22}
                         color="#FFA500"
                     />

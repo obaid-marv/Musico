@@ -24,6 +24,7 @@ const Login = ({navigation}) => {
             //     Toast.show("Password field is empty!!", Toast.SHORT)
             // } 
             if (!isEmailValid(email)) {
+                console.log(email)
                 Toast.show("Invalid email format", Toast.SHORT);
             } else if (!isPasswordValid(password)) {
                 Toast.show("Password length 8-15 characters and one capital letter", Toast.SHORT);
@@ -46,7 +47,7 @@ const Login = ({navigation}) => {
       };
 
     const isEmailValid = (email) => {
-        const emailRegex = /^[a-z][A-Z]{3,}\d{0,5}\@gmail\.com$/;
+        const emailRegex = /^[a-zA-Z]{3,}\d{0,5}\@gmail\.com$/;
         return emailRegex.test(email);
     };
 
