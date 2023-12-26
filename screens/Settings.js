@@ -1,24 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import { View , StyleSheet, StatusBar, Image,Text, TouchableOpacity } from 'react-native';
+import { View , StyleSheet, StatusBar, Image,Text, TouchableOpacity, Alert } from 'react-native';
 import auth from "@react-native-firebase/auth";
 import firebase from '@react-native-firebase/app';
 import firestore from '@react-native-firebase/firestore';
 import Toast from "react-native-simple-toast"
 import Icon from 'react-native-vector-icons/Ionicons'
 import ToggleSwitch from '../Components/ToggleSwitch';
+import Entypo from 'react-native-vector-icons/Entypo'
 
 
 const Settings = ({navigation}) => {
     const [user, setUser] = useState(null);
     const [name, setName] = useState('')
-
-    const handleSignOut = async () => {
-        try {
-          await auth().signOut();
-        } catch (error) {
-          console.error('Error signing out:', error);
-        }
-    };
 
     useEffect(() => {
         // Fetch user data from Firebase when the component mounts
@@ -38,6 +31,75 @@ const Settings = ({navigation}) => {
           setName(user.firstName);
         }
       }, [user]);
+
+    const handleSignOut = async () => {
+        Alert.alert(
+      "Logout",
+      "Are you sure you want to logout?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "Logout",
+          onPress: async () => {
+            try {
+              await auth().signOut();
+            } catch (error) {
+              console.error('Error signing out:', error);
+            }
+          },
+          style: "destructive"
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
+    const handleDeleteUser = async () => {
+        Alert.alert(
+            "Delete Account",
+            "Are you sure you want to delete your account?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                {
+                    text: "Delete",
+                    onPress: async () => {
+                        await deleteUserFromFirebase();
+                    },
+                    style: "destructive"
+                }
+            ],
+            { cancelable: false }
+        );
+    };
+
+    const deleteUserFromFirebase = async () => {
+        try {
+
+            const currentUser = firebase.auth().currentUser;
+
+            if (currentUser) {
+                await currentUser.delete();
+                await firestore().collection('users').doc(currentUser.uid).delete();
+                Toast.show("User deleted successfully !",Toast.SHORT)
+                // await auth().signOut();
+            } 
+            else {
+                console.warn("No authenticated user found.");
+            }
+        } 
+        catch (error) {
+            console.error("Error deleting user:", error);
+        }
+    };
+   
 
     return(
         <View style={styles.container}>
@@ -105,7 +167,10 @@ const Settings = ({navigation}) => {
                 <Text style={[styles.pText,{marginLeft:40}]}>You are Logged in as {name}</Text>
             </TouchableOpacity>
 
-
+            <TouchableOpacity style={styles.delBtn} onPress={()=>handleDeleteUser()}>
+                <Text style={styles.delText}>Delete the Account</Text>
+                <Entypo style={styles.delIcon} name='circle-with-cross' size={22} color={"red"} />
+            </TouchableOpacity>
 
 
         </View>
@@ -188,6 +253,22 @@ const styles = StyleSheet.create({
     dataText:{
         fontWeight:"bold",
         color:"#ffa500"
+    },
+    delBtn:{
+        flexDirection:"row",
+        justifyContent:"space-between",
+        alignItems:"center"
+    },
+    delText:{
+        fontWeight:"bold",
+        fontSize:22,
+        color:"red",
+        marginLeft:10,
+        marginTop:8
+    },
+    delIcon:{
+        marginRight:30,
+        marginTop:8
     }
 
 });
