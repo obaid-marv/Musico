@@ -28,7 +28,7 @@ const AccountScreen =({navigation})=> {
         };
         
         fetchUserData();
-    }, [user]);
+    }, []);
 
     useEffect(() => {
         if (user) {
