@@ -102,7 +102,7 @@ const LibraryScreen = ({navigation}) => {
             </View>
 
         </View>
-            <MusicCard />
+            <MusicCard navigation={navigation}/>
         </View>
     );
 };

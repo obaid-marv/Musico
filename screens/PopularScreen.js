@@ -6,7 +6,7 @@ import MusicCard from '../Components/MusicCard';
 import firestore from '@react-native-firebase/firestore';
 import React, {useEffect, useState} from 'react';
 
-const PopularScreen = (navigation)=>{
+const PopularScreen = ({navigation})=>{
 
     const [loading, setLoading] = useState(true);
     const [music, setMusic] = useState([])
@@ -84,7 +84,7 @@ const PopularScreen = (navigation)=>{
             )}
             />
             
-            <MusicCard/>
+            <MusicCard navigation={navigation}/>
         </View>
     )
 }

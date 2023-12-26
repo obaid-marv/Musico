@@ -146,7 +146,7 @@ const AccountScreen =({navigation})=> {
             </View>
 
             <View style={{marginBottom:5}}>
-            <MusicCard/>
+            <MusicCard navigation={navigation}/>
             </View>        
         </View>
     )
