@@ -106,7 +106,9 @@ const HomeScreen = ({navigation})=>{
 
                 <View style={myStyles.hotList}>
                 {isLoading ? (
-                    <ActivityIndicator size="large" color="#FFA500" />
+                    <View style={myStyles.loadingContainer}>
+                        <ActivityIndicator size="large" color="#FFA500" />
+                    </View>
                 ) : (
                     <FlatList
                     data={music}
@@ -123,7 +125,9 @@ const HomeScreen = ({navigation})=>{
 
                 <View style={myStyles.hotList}>
                 {isLoading ? (
-                    <ActivityIndicator size="large" color="#FFA500" />
+                    <View style={myStyles.loadingContainer}>
+                        <ActivityIndicator size="large" color="#FFA500" />
+                    </View>
                 ) : (
                     <FlatList
                     data={music}
@@ -153,6 +157,11 @@ const myStyles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         backgroundColor:"#001f3f",  
+    },
+    loadingContainer:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     content:{
         top:30,

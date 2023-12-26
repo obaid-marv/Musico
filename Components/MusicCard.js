@@ -150,9 +150,10 @@ const styles = StyleSheet.create({
     fontWeight:"bold"
   },
   artistText: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#ffa500",
-    fontWeight:"bold"
+    fontWeight:"bold",
+    width:"60%"
   },
   actionView: {
     flex:1,

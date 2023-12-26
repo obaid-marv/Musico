@@ -87,7 +87,7 @@ const EditScreen = ({navigation})=>{
                     {/* Image in blueView */}
                     <Image style={myStyles.imgStyleBlue} source={require("../Components/Profile1.png")} />
 
-                    <TouchableOpacity style={{marginTop:50, marginBottom:10}}>
+                    <TouchableOpacity style={{marginTop:50, marginBottom:10}} onPress={()=>Toast.show("This functionality also not added",Toast.SHORT)}>
                         <Text>Change Picture</Text>
                     </TouchableOpacity>
 

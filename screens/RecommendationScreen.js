@@ -44,7 +44,7 @@ const RecommendationScreen = ({navigation})=>{
                     
             </View>
             <View style={myStyles.searchBarView}>
-                    <TouchableOpacity style={myStyles.searchIcon} onPress={()=>Toast.show("List not big enough to use search.", Toast.SHORT)}>
+                    <TouchableOpacity style={myStyles.searchIcon} onPress={()=>Toast.show("Search functionality not added yet", Toast.SHORT)}>
                         <Icon name='search' size={35} color= "grey"/>
                     </TouchableOpacity>
                     <TextInput style={myStyles.searchBar} placeholder='Search for artists, songs and genre' placeholderTextColor={"grey"}></TextInput>
@@ -53,7 +53,9 @@ const RecommendationScreen = ({navigation})=>{
             <View style={myStyles.content}>
             
             {isLoading ? (
-                <ActivityIndicator size="large" color="#FFA500"/>
+                <View style={myStyles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#FFA500" />
+                </View>
             ) : (
                 <FlatList
                     style={myStyles.FLView}
@@ -113,7 +115,7 @@ const RecommendationScreen = ({navigation})=>{
     
                 />
             )}
-                <MusicCard/>
+                <MusicCard navigation={navigation}/>
 
             </View>
         </View>
@@ -129,11 +131,16 @@ const myStyles = StyleSheet.create({
         justifyContent:"center",
         backgroundColor:"#001f3f",  
     },
+    loadingContainer:{
+        flex:1,
+        alignItems:"center",
+        justifyContent:"center"
+    },
     content:{
         flex: 1,
         alignItems: "center",
         justifyContent: "space-between",
-        paddingVertical: 20,
+        // paddingVertical: 20,
         width:"100%"
     },
     header:{
