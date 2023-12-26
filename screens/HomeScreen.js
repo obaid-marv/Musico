@@ -9,6 +9,7 @@ import MusicCard from '../Components/MusicCard';
 import auth from '@react-native-firebase/auth';
 import Toast from "react-native-simple-toast"
 import firestore from '@react-native-firebase/firestore';
+import TrackPlayer from 'react-native-track-player';
 
 
 const HomeScreen = ({navigation})=>{
@@ -17,6 +18,9 @@ const HomeScreen = ({navigation})=>{
     const [music, setMusic] = useState([])
     const screenWidth = Dimensions.get('window').width;
       
+
+
+    
 
     useEffect(() => {
         const subscriber = firestore()
@@ -34,20 +38,13 @@ const HomeScreen = ({navigation})=>{
             setMusic(music);
             setLoading(false);
           });
-      
+        
         // Unsubscribe from events when no longer in use
         return () => subscriber();
       }, []);
 
     //   console.log(music);
-    const data = [
-        { key: '1', title: './Havana.jpg' },
-        { key: '2', title: './Havana.jpg' },
-        { key: '3', title: './Havana.jpg' },
-        { key: '4', title: './Havana.jpg' },
-        // Add more items as needed
-      ];
-    //   console.log(music.artist)
+    
       const renderItem = ({ item }) => (
         <TouchableOpacity style={myStyles.hotTouch} onPress={()=>Toast.show("It will not play, enjoy the scrolling for now :)",Toast.SHORT)}>
             <Image style={[myStyles.himg, { width: screenWidth / 3 }]} source={{uri: item.artwork}}

@@ -72,6 +72,7 @@ const MusicPlayer = ({navigation}) => {
         const startPlayback = async () => {
             try {
                 await TrackPlayer.setupPlayer({});
+                
                 const tracks = [];
                 for (const track of musicData) {
                 
