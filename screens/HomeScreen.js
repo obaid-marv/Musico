@@ -16,11 +16,7 @@ const HomeScreen = ({navigation})=>{
     const [loading, setLoading] = useState(true);
     const [music, setMusic] = useState([])
     const screenWidth = Dimensions.get('window').width;
-    const check = ()=>{
-        auth().onAuthStateChanged((user)=>{
-            console.log(user)
-        });
-    }   
+      
 
     useEffect(() => {
         const subscriber = firestore()
@@ -53,7 +49,7 @@ const HomeScreen = ({navigation})=>{
       ];
     //   console.log(music.artist)
       const renderItem = ({ item }) => (
-        <TouchableOpacity style={myStyles.hotTouch} onPress={Toast.show("It will not play, enjoy the scrolling for now :)",Toast.SHORT)}>
+        <TouchableOpacity style={myStyles.hotTouch} onPress={()=>Toast.show("It will not play, enjoy the scrolling for now :)",Toast.SHORT)}>
             <Image style={[myStyles.himg, { width: screenWidth / 3 }]} source={{uri: item.artwork}}
             />
             <Text style={myStyles.imgText}>{item.title}</Text>
@@ -69,7 +65,7 @@ const HomeScreen = ({navigation})=>{
                     </TouchableOpacity>
             </View>
             <View style={myStyles.searchBarView}>
-                    <TouchableOpacity style={myStyles.searchIcon} onPress={Toast.show("List not big enough to use search.", Toast.SHORT)}>
+                    <TouchableOpacity style={myStyles.searchIcon} onPress={()=>Toast.show("List not big enough to use search.", Toast.SHORT)}>
                         <Icon name='search' size={35} color= "grey"/>
                     </TouchableOpacity>
                     <TextInput style={myStyles.searchBar} placeholder='Search for artists, songs and genre' placeholderTextColor={"grey"}></TextInput>
@@ -77,7 +73,7 @@ const HomeScreen = ({navigation})=>{
 
             <View style={myStyles.upperCardsClass}>
 
-                <TouchableOpacity onPress={()=>{check(); Toast.show("Artists are: Camila, Eminem, Becky G, Imran Khan, Arjit Singh, Imagine Dragons, Javed Bashir", Toast.LONG)}} >
+                <TouchableOpacity onPress={()=>{Toast.show("Artists are: Camila, Eminem, Becky G, Imran Khan, Arjit Singh, Imagine Dragons, Javed Bashir", Toast.LONG)}} >
                     <View style = {[myStyles.upperCard]}>
                         <MaterialCommunityIcons name='microphone' size={35} color="#FFA500" />
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Artists</Text>
