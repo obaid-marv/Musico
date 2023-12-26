@@ -33,7 +33,7 @@ const LibraryScreen = ({navigation}) => {
             <StatusBar backgroundColor={"#001f3f"}/>
 
             <View style={styles.heading}>
-                <TouchableOpacity style={{flex:1, left:18}} onPress={()=>Toast.show("Use the Botton Tabs !! , This is just for show", Toast.SHORT)}>
+                <TouchableOpacity style={{flex:1, left:18}} onPress={()=>Toast.show("Use the Botton Tabs for now !!", Toast.SHORT)}>
 
                 <Icon name='arrow-back' size={35} color= "#A6A6A6" />
                 </TouchableOpacity>
@@ -52,21 +52,21 @@ const LibraryScreen = ({navigation}) => {
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>Toast.show("Not that many albums",Toast.SHORT)}>
+                <TouchableOpacity onPress={()=>Toast.show("No Albums Yet. A screen will be made for it later ons",Toast.SHORT)}>
                     <View style = {[styles.upperCard]}>
                         <Icon name='disc-outline' size={35} color="#FFA500" />
                         <Text style={[styles.colorWhite,  styles.smallFonts] }>Albums</Text>
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>Toast.show("Why do you need a playlist ?",Toast.SHORT)}>
+                <TouchableOpacity onPress={()=>Toast.show("Why do you need a playlist ? If you do we will add the functionality later",Toast.SHORT)}>
                     <View style = {[styles.upperCard]}>
                     <SimpleLineIcons name='playlist' size={35} color="#FFA500" />   
                         <Text style={[styles.colorWhite,  styles.smallFonts] }>Playlists</Text>
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>{Toast.show("ALL TYPES", Toast.SHORT)}}>
+                <TouchableOpacity onPress={()=>{Toast.show("ALL TYPES, Give suggestions for the preferred ones", Toast.SHORT)}}>
                     <View style = {[styles.upperCard]}>
                         <Icon name='musical-notes-outline' size={35} color="#FFA500" />
                         <Text style={[styles.colorWhite,  styles.smallFonts] }>Genre</Text>
@@ -78,19 +78,19 @@ const LibraryScreen = ({navigation}) => {
                 <Text style = {styles.colorOffWhite}>Recently Streamed</Text>
                 <View>
 
-                {musicData?.map((e,i)=>{
+                {musicData?.map((item,index)=>{
 
                     return (         
 
-                        <TouchableOpacity key={i}>
+                        <TouchableOpacity key={index} onPress={()=>Toast.show("Sorry, functionality not added yet. :)")}>
 
                             <View style={styles.libraryCard}>
                                 <View style = {styles.imageDiv}>
-                                    <Image style={{width:75, height:75, borderRadius:15}} source={{uri:e?.imgUrl}}/>
+                                    <Image style={{width:75, height:75, borderRadius:15}} source={{uri:item?.imgUrl}}/>
                                 </View>
                                 <View style={styles.data}>
-                                    <Text style = {{color:"#FFA500"}}>{e.artist}</Text>
-                                    <Text style = {{color:"#aaa"}}>{e.noOfSongs}</Text>
+                                    <Text style = {{color:"#FFA500"}}>{item.artist}</Text>
+                                    <Text style = {{color:"#aaa"}}>{item.noOfSongs}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>

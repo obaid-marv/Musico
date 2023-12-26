@@ -14,7 +14,7 @@ import TrackPlayer from 'react-native-track-player';
 
 const HomeScreen = ({navigation})=>{
 
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
     const [music, setMusic] = useState([])
     const screenWidth = Dimensions.get('window').width;
       
@@ -62,7 +62,7 @@ const HomeScreen = ({navigation})=>{
                     </TouchableOpacity>
             </View>
             <View style={myStyles.searchBarView}>
-                    <TouchableOpacity style={myStyles.searchIcon} onPress={()=>Toast.show("List not big enough to use search.", Toast.SHORT)}>
+                    <TouchableOpacity style={myStyles.searchIcon} onPress={()=>Toast.show("Functionality for it not added yet.", Toast.SHORT)}>
                         <Icon name='search' size={35} color= "grey"/>
                     </TouchableOpacity>
                     <TextInput style={myStyles.searchBar} placeholder='Search for artists, songs and genre' placeholderTextColor={"grey"}></TextInput>
@@ -77,21 +77,21 @@ const HomeScreen = ({navigation})=>{
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>Toast.show("Not that many albums",Toast.SHORT)}>
+                <TouchableOpacity onPress={()=>Toast.show("No Albums Yet. A screen will be made for it later on",Toast.SHORT)}>
                     <View style = {[myStyles.upperCard]}>
                         <Icon name='disc-outline' size={35} color="#FFA500" />
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Albums</Text>
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>Toast.show("Why do you need a playlist ?",Toast.SHORT)}>
+                <TouchableOpacity onPress={()=>Toast.show("Why do you need a playlist ? If you do we will add the functionality later",Toast.SHORT)}>
                     <View style = {[myStyles.upperCard]}>
                     <SimpleLineIcons name='playlist' size={35} color="#FFA500" />   
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Playlists</Text>
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={()=>{Toast.show("ALL TYPES", Toast.SHORT)}}>
+                <TouchableOpacity onPress={()=>{Toast.show("ALL TYPES, Give suggestions for the preferred ones", Toast.SHORT)}}>
                     <View style = {[myStyles.upperCard]}>
                         <Icon name='musical-notes-outline' size={35} color="#FFA500" />
                         <Text style={[myStyles.colorWhite,  myStyles.smallFonts] }>Genre</Text>
@@ -103,28 +103,38 @@ const HomeScreen = ({navigation})=>{
 
             <View style={myStyles.content}>
                 <Text style={myStyles.bold}>HotList</Text>
-                <View style={myStyles.hotList}>
-                <FlatList
-                data={music}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                renderItem={renderItem}
-                keyExtractor={item => item.key}
-                />
-                </View>
-                <Text style={myStyles.bold}>New Releases</Text>
-                <View style={myStyles.hotList}>
-                <FlatList
-                data={music}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                renderItem={renderItem}
-                keyExtractor={item => item.key}
-                />    
 
-                    
+                <View style={myStyles.hotList}>
+                {isLoading ? (
+                    <ActivityIndicator size="large" color="#FFA500" />
+                ) : (
+                    <FlatList
+                    data={music}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.key}
+                    />
+                    )
+                }      
                 </View>
-                
+
+                <Text style={myStyles.bold}>New Releases</Text>
+
+                <View style={myStyles.hotList}>
+                {isLoading ? (
+                    <ActivityIndicator size="large" color="#FFA500" />
+                ) : (
+                    <FlatList
+                    data={music}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.key}
+                    />
+                    )
+                }
+                </View>
             </View>
 
             <MusicCard navigation={navigation}/>

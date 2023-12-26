@@ -28,7 +28,7 @@ const AccountScreen =({navigation})=> {
         };
         
         fetchUserData();
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         if (user) {
@@ -66,7 +66,7 @@ const AccountScreen =({navigation})=> {
 
             <View style={myStyles.header}>
 
-            <TouchableOpacity style={myStyles.backButton} onPress={()=>Toast.show("Use the Botton Tabs !! , This is just for show",Toast.SHORT)}>
+            <TouchableOpacity style={myStyles.backButton} onPress={()=>Toast.show("Use the Botton Tabs for now !! , This is just for show",Toast.SHORT)}>
                 <Icon name='arrow-back' size={35} color= "#A6A6A6" />
             </TouchableOpacity>
 
