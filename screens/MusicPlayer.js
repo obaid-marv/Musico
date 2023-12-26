@@ -5,6 +5,7 @@ import TrackPlayer, { usePlaybackState, useTrackPlayerEvents, useProgress } from
 import Slider from '@react-native-community/slider';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
+import Toast from 'react-native-simple-toast'
 
 
 
@@ -180,9 +181,12 @@ const MusicPlayer = ({navigation}) => {
                     <TouchableOpacity onPress={()=>{
                         if(icon1Name=="repeat"){
                             setIcon1Name("infinite");
+                            Toast.show("Loop Infinitely",Toast.SHORT);
                         }
-                        if(icon1Name=="repeat-one"){
+                        if(icon1Name=="infinite"){
                             setIcon1Name("repeat");
+                            Toast.show("Loop Once",Toast.SHORT);
+
                         }
                     }}>
                     <Icon name={icon1Name} size={20} color='#FFA500'/>
@@ -190,9 +194,11 @@ const MusicPlayer = ({navigation}) => {
                     <TouchableOpacity onPress={()=>{
                         if(iconName=="heart-outline"){
                             setIconName("heart");
+                            Toast.show("Added to Favourite",Toast.SHORT);
                         }
                         if(iconName=="heart"){
                             setIconName("heart-outline");
+                            Toast.show("Removed from Favourite",Toast.SHORT);
                         }
                     }}>
                     <Icon name={iconName} size={20} color='#FFA500'/>

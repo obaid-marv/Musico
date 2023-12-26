@@ -145,8 +145,8 @@ const AccountScreen =({navigation})=> {
                 </TouchableOpacity>
             </View>
 
-            <View style={{marginBottom:5}}>
-            <MusicCard navigation={navigation}/>
+            <View style={{marginBottom:30}}>
+            <MusicCard />
             </View>        
         </View>
     )

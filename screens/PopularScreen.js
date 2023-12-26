@@ -1,4 +1,4 @@
-import {Text, Image, StatusBar,View, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
+import {Text, ActivityIndicator,Image, StatusBar,View, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Toast from 'react-native-simple-toast';
 import { list } from './MusicList';
@@ -8,7 +8,7 @@ import React, {useEffect, useState} from 'react';
 
 const PopularScreen = ({navigation})=>{
 
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
     const [music, setMusic] = useState([])
 
     useEffect(() => {
@@ -50,6 +50,11 @@ const PopularScreen = ({navigation})=>{
                 <Text style={myStyles.textStyle}>Last 24 hours</Text>
             </View>
 
+            {isLoading ? (
+                <View style={myStyles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#FFA500" />
+                </View>
+            ) : (
             <FlatList
             style={myStyles.FLView}
             horizontal={true}
@@ -62,27 +67,36 @@ const PopularScreen = ({navigation})=>{
                     <Text style={myStyles.titleText}>{item.title}</Text>
                     <Text style={myStyles.artistText}>{item.artist}</Text>
                 </View>
+            
             )}
             />
+            )}
 
             <View style={myStyles.textView}>
                 <Text style={myStyles.textStyle}>Last 7 days</Text>
             </View>
 
+            {isLoading ? (
+                <View style={myStyles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#FFA500" />
+                </View>
+            ) : (
             <FlatList
             style={myStyles.FLView}
-            showsHorizontalScrollIndicator={false}
             horizontal={true}
+            showsHorizontalScrollIndicator={false}
             data={music}
             keyExtractor={(item) => item.key}
             renderItem={({item})=>(
                 <View key={item.key}>
-                    <Image style={myStyles.imgStyle} source={{ uri: item.artwork}}/>
+                    <Image style={myStyles.imgStyle} source={{uri:item.artwork}}/>
                     <Text style={myStyles.titleText}>{item.title}</Text>
                     <Text style={myStyles.artistText}>{item.artist}</Text>
                 </View>
+            
             )}
             />
+            )}
             
             <MusicCard navigation={navigation}/>
         </View>
@@ -97,6 +111,11 @@ const myStyles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         backgroundColor:"#001f3f",  
+    },
+    loadingContainer:{
+        flex:1,
+        alignItems:"center",
+        justifyContent:"center"
     },
     header:{    
         display:"flex",
