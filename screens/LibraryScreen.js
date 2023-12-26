@@ -11,29 +11,21 @@ import firestore from '@react-native-firebase/firestore';
 
 const LibraryScreen = ({navigation}) => {
 
-    const [loading, setLoading] = useState(true);
-    const [music, setMusic] = useState([])
+    const [musicData, setMusicData ] = useState([]);
 
-    useEffect(() => {
-        const subscriber = firestore()
-          .collection('Music')
-          .onSnapshot(querySnapshot => {
-            const music = [];
-      
-            querySnapshot.forEach(documentSnapshot => {
-              music.push({
-                ...documentSnapshot.data(),
-                key: documentSnapshot.id,
-              });
-            });
-      
-            setMusic(music);
-            setLoading(false);
-          });
-      
-        // Unsubscribe from events when no longer in use
-        return () => subscriber();
-      }, []);
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://raw.githubusercontent.com/obaid-marv/Weather-App/main/data.json");
+      const data = await response.json();
+      setMusicData(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    
+    fetchData();
+  }, []);
 
     return(
 
@@ -86,54 +78,26 @@ const LibraryScreen = ({navigation}) => {
                 <Text style = {styles.colorOffWhite}>Recently Streamed</Text>
                 <View>
 
-                <TouchableOpacity>
+                {musicData?.map((e,i)=>{
 
-                    <View style={styles.libraryCard}>
-                        <View style = {styles.imageDiv}>
-                            <Image style={{width:75, height:75, borderRadius:15}} source={require("../Components/Havana.jpg")}/>
-                        </View>
-                        <View style={styles.data}>
-                            <Text style = {{color:"#FFA500"}}>Camilla</Text>
-                            <Text style = {{color:"#aaa"}}>2</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
+                    return (         
 
-                    <View style={styles.libraryCard}>
-                        <View style = {styles.imageDiv}>
-                            <Image style={{width:75, height:75, borderRadius:15}} source={require("./Havana.jpg")}/>
-                        </View>
-                        <View style={styles.data}>
-                            <Text style = {{color:"#FFA500"}}>Album name</Text>
-                            <Text style = {{color:"#aaa"}}>No. of Songs</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
+                        <TouchableOpacity key={i}>
 
-                    <View style={styles.libraryCard}>
-                        <View style = {styles.imageDiv}>
-                            <Image style={{width:75, height:75, borderRadius:15}} source={require("./Havana.jpg")}/>
-                        </View>
-                        <View style={styles.data}>
-                            <Text style = {{color:"#FFA500"}}>Album name</Text>
-                            <Text style = {{color:"#aaa"}}>No. of Songs</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
-
-                    <View style={styles.libraryCard}>
-                        <View style = {styles.imageDiv}>
-                            <Image style={{width:75, height:75, borderRadius:15}} source={require("./Havana.jpg")}/>
-                        </View>
-                        <View style={styles.data}>
-                            <Text style = {{color:"#FFA500"}}>Album name</Text>
-                            <Text style = {{color:"#aaa"}}>No. of Songs</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+                            <View style={styles.libraryCard}>
+                                <View style = {styles.imageDiv}>
+                                    <Image style={{width:75, height:75, borderRadius:15}} source={{uri:e?.imgUrl}}/>
+                                </View>
+                                <View style={styles.data}>
+                                    <Text style = {{color:"#FFA500"}}>{e.artist}</Text>
+                                    <Text style = {{color:"#aaa"}}>{e.noOfSongs}</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    )
+                })    
+                }
+                
                 </View>
             </View>
 

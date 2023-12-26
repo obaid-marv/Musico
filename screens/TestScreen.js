@@ -8,29 +8,26 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 
 const MusicPlayer = () => {
-    const [musicData, setMusicData] = useState(null);
+  const [musicData, setMusicData ] = useState([]);
 
-    const fetchMusicData = async () => {
-        try {
-          const musicDoc = await firestore().collection('Music').doc("1").get();
-          if (musicDoc.exists) {
-            const data = musicDoc.data();
-            setMusicData(data);
-          } else {
-            console.error('Music document not found');
-          }
-        } catch (error) {
-          console.error('Error fetching music data:', error);
-        }
-      };
-
-    useEffect(()=>{
-        fetchMusicData()
-    },[])
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://raw.githubusercontent.com/obaid-marv/Weather-App/main/data.json");
+      const data = await response.json();
+      console.log(data)
+      setMusicData(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    
+    fetchData();
+  }, []); 
 
   return (
-    <TouchableOpacity >
-      <Text>{musicData?.artist}</Text>
+    <TouchableOpacity  style={{backgroundColor:"white"}} >
+      <Text style={{color:"black"}}>{musicData[0]?.artist}</Text>
     </TouchableOpacity>
   );
 };
