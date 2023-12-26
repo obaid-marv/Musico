@@ -66,15 +66,13 @@ const MusicPlayer = ({navigation}) => {
         useEffect(()=>{
 
             fetchMusicData();
-        },[])
+        },{})
 
-        useEffect(() => {
-            const startPlayback = async () => {
+
+        const startPlayback = async () => {
             try {
                 await TrackPlayer.setupPlayer({});
                 const tracks = [];
-
-                // Loop through each track in musicData and add it to the tracks array
                 for (const track of musicData) {
                 
                 const audioFileUrl = await getAudioFileUrl(track.url);
@@ -97,6 +95,8 @@ const MusicPlayer = ({navigation}) => {
             }
             };
 
+        useEffect(() => {
+            
             if (musicData.length > 0) {
             startPlayback();
             }
@@ -163,14 +163,14 @@ const MusicPlayer = ({navigation}) => {
                 </View>
                 <View style={styles.coverWrapper}>
                     {musicData[current]?.artwork ? (
-                    <Image style={styles.cover} source={{ uri: activeTrack.artwork}} />
+                    <Image style={styles.cover} source={{ uri: activeTrack?.artwork}} />
                     ) : (
                     <Text>No artwork available</Text>
                     )}
                 </View>
                 <View>
-                    <Text style={styles.title} >{activeTrack.title}</Text>
-                    <Text style={styles.artist} >{activeTrack.artist}</Text>
+                    <Text style={styles.title} >{activeTrack?.title}</Text>
+                    <Text style={styles.artist} >{activeTrack?.artist}</Text>
                 
                 </View>
                 <View style={styles.likerepeat}>
