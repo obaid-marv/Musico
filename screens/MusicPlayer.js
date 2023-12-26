@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { StyleSheet,View, StatusBar,Text,SafeAreaView, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet,View, StatusBar,Text,SafeAreaView, TouchableOpacity, Image, Dimensions, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import TrackPlayer, { usePlaybackState, useTrackPlayerEvents, useProgress } from 'react-native-track-player';
 import Slider from '@react-native-community/slider';
@@ -66,7 +66,7 @@ const MusicPlayer = ({navigation}) => {
         useEffect(()=>{
 
             fetchMusicData();
-        },{})
+        },[])
 
 
         const startPlayback = async () => {
@@ -162,10 +162,12 @@ const MusicPlayer = ({navigation}) => {
                     <Icon name="arrow-back-sharp" size={35} color='#001f3f'/>
                 </View>
                 <View style={styles.coverWrapper}>
-                    {musicData[current]?.artwork ? (
-                    <Image style={styles.cover} source={{ uri: activeTrack?.artwork}} />
+                    {activeTrack?.artwork ? (
+                    <Image style={styles.cover} source={{ uri: activeTrack.artwork}} />
                     ) : (
-                    <Text>No artwork available</Text>
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#FFA500" />
+                </View>
                     )}
                 </View>
                 <View>
@@ -320,6 +322,11 @@ const styles = StyleSheet.create({
     },
     timerText:{
         color:'#FFA500',
+    },
+    loadingContainer:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 
 });
