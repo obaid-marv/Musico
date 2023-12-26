@@ -55,9 +55,9 @@ const PopularScreen = (navigation)=>{
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             data={music}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.key}
             renderItem={({item})=>(
-                <View key={item.id}>
+                <View key={item.key}>
                     <Image style={myStyles.imgStyle} source={{uri:item.artwork}}/>
                     <Text style={myStyles.titleText}>{item.title}</Text>
                     <Text style={myStyles.artistText}>{item.artist}</Text>
@@ -74,9 +74,9 @@ const PopularScreen = (navigation)=>{
             showsHorizontalScrollIndicator={false}
             horizontal={true}
             data={music}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.key}
             renderItem={({item})=>(
-                <View key={item.id}>
+                <View key={item.key}>
                     <Image style={myStyles.imgStyle} source={{ uri: item.artwork}}/>
                     <Text style={myStyles.titleText}>{item.title}</Text>
                     <Text style={myStyles.artistText}>{item.artist}</Text>
