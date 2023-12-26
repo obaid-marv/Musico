@@ -3,6 +3,7 @@ import { View , StyleSheet, StatusBar, Text, TouchableOpacity, TextInput, Pressa
 import Icon from 'react-native-vector-icons/Ionicons'
 // import { signInWithEmailAndPassword, getAuth} from "firebase/auth"
 import auth from '@react-native-firebase/auth';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Toast from "react-native-simple-toast"
 
 
@@ -11,6 +12,7 @@ const Login = ({navigation}) => {
 // const auth = getAuth();
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [isPasswordVisible, setPasswordVisible] = useState(false);
     const [isLoginButtonDisabled, setLoginButtonDisabled] = useState(true)
 
     const loginUser = async () => {
@@ -44,13 +46,22 @@ const Login = ({navigation}) => {
       };
 
     const isEmailValid = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-z][A-Z]{3,}\d{0,5}\@gmail\.com$/;
         return emailRegex.test(email);
     };
 
     const isPasswordValid = (password) => {
         return password.length >= 8 && password.length <= 15 && /[A-Z]/.test(password);
     };
+
+    const handlePasswordVisibility = ()=>{
+        if(isPasswordVisible){
+            setPasswordVisible(false)
+        }
+        else{
+            setPasswordVisible(true)
+        }
+    }
 
     useEffect(() => {
         setLoginButtonDisabled(!email || !password || email.trim() === "" || password.trim() === "");
@@ -68,9 +79,18 @@ const Login = ({navigation}) => {
 
             <Text style = {styles.title1}>Login</Text>
             <Text style = {styles.title2}>Welcome back!</Text>
-        <TextInput style={styles.inputs} value={email} onChangeText={text => setEmail(text)} placeholderTextColor="#FFA500" placeholder='Enter your Username/Email' />
-            <TextInput style={styles.inputs} value={password} secureTextEntry onChangeText={password => setPassword(password)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
-            <TouchableOpacity style={{width:"83%"}}>
+            <TextInput style={styles.inputs} value={email} onChangeText={text => setEmail(text)} placeholderTextColor="#FFA500" placeholder='Enter your Username/Email' />
+            <View>
+                <TextInput style={styles.inputs} value={password} secureTextEntry={!isPasswordVisible} onChangeText={password => setPassword(password)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
+                <TouchableOpacity style={styles.showPasswordIcon} onPress={() => handlePasswordVisibility()}>
+                    <MaterialCommunityIcons
+                        name={isPasswordVisible ? 'eye' : 'eye-off'}
+                        size={22}
+                        color="#FFA500"
+                    />
+                </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={{width:"83%"}} onPress={()=>Toast.show("Nahi bhoolna tha naa, abb kya kar sakte", Toast.SHORT)}>
                 <Text style={styles.pTextPass} >Forgot password?</Text>
             </TouchableOpacity>
 
@@ -216,5 +236,10 @@ const styles = StyleSheet.create({
         color:"#FFA500",
         fontSize:14,
         textAlign:"left"
-    }
+    },
+    showPasswordIcon: {
+        position: 'absolute',
+        right: 20,
+        top: 20,
+      }
 });

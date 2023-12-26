@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 // import {firebase} from "../../../Firebase";
 // import auth, {createUserWithEmailAndPassword, getAuth} from "firebase/auth"
 import auth from '@react-native-firebase/auth';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import firestore from '@react-native-firebase/firestore';
 import Toast from "react-native-simple-toast"
 
@@ -15,6 +16,7 @@ const SignUp = ({navigation}) => {
     const [firstName, setFirstName] = useState('');
     const [phoneNo , setPhoneNo] = useState('');
     const [isSignUpButtonDisabled, setSignUpButtonDisabled] = useState(true)
+    const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     const handleSignUp = async () => {
         try {
@@ -42,13 +44,19 @@ const SignUp = ({navigation}) => {
             }
     
         } catch (error) {
-            console.error('Error creating user:', error);
-            alert(error.message);
+            if (error.code === "auth/email-already-in-use" ) {
+                setEmail("")
+                alert("Email already in use, please try some other email");
+            }
+            else{
+                console.error('Error creating user:', error);
+                alert(error.message);
+            }
         }
       };
     
     const isEmailValid = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-zA-Z]{3,}\d{0,5}\@gmail\.com$/;
         return emailRegex.test(email);
     };
 
@@ -64,6 +72,15 @@ const SignUp = ({navigation}) => {
     const isphoneValid = (phoneNo) => {
         const phoneRegex = /^03\d{9}$/;
         return phoneRegex.test(phoneNo);
+    }
+
+    const handlePasswordVisibility = ()=>{
+        if(isPasswordVisible){
+            setPasswordVisible(false)
+        }
+        else{
+            setPasswordVisible(true)
+        }
     }
 
     useEffect(() => {
@@ -82,7 +99,16 @@ const SignUp = ({navigation}) => {
             <TextInput style={styles.inputs} value={firstName} onChangeText={text => setFirstName(text)} placeholderTextColor="#FFA500" placeholder='Enter your Username'/>
             <TextInput style={styles.inputs} value={email} onChangeText={text => setEmail(text)} placeholderTextColor="#FFA500" placeholder='Enter your email' />
             <TextInput style={styles.inputs} value={phoneNo} onChangeText={text => setPhoneNo(text)}  placeholderTextColor="#FFA500" placeholder='Enter your Phone Number' />
-            <TextInput style={styles.inputs} secureTextEntry value={password} onChangeText={text => setPassword(text)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
+            <View>
+                <TextInput style={styles.inputs} secureTextEntry={!isPasswordVisible} value={password} onChangeText={text => setPassword(text)} placeholderTextColor="#FFA500" placeholder='Enter your Password' />
+                <TouchableOpacity style={styles.showPasswordIcon} onPress={() => handlePasswordVisibility()}>
+                    <MaterialCommunityIcons
+                        name={isPasswordVisible ? 'eye-off' : 'eye'}
+                        size={22}
+                        color="#FFA500"
+                    />
+                </TouchableOpacity>
+            </View>
             <TouchableOpacity onPress={()=>{handleSignUp()}} disabled={isSignUpButtonDisabled} >  
                 <Text style={styles.btn}>Sign Up</Text>
             </TouchableOpacity>
@@ -214,5 +240,10 @@ const styles = StyleSheet.create({
         flex:4,
         marginLeft:34,
         fontSize:14,
-    }
+    },
+    showPasswordIcon: {
+        position: 'absolute',
+        right: 20,
+        top: 20,
+      }
 });
