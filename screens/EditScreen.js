@@ -51,6 +51,7 @@ const EditScreen = ({navigation})=>{
           console.error('Error updating user data:', error);
           alert(error)
         }
+        setUserData({firstName:"", email:"", phoneNo:"",password:""})
       }
 
     useEffect(() => {

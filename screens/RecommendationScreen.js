@@ -1,4 +1,4 @@
-import {Text, View, StyleSheet, StatusBar,TextInput, FlatList,Image,TouchableOpacity} from 'react-native'
+import {Text, View, StyleSheet, StatusBar,TextInput, FlatList,Image,TouchableOpacity, ActivityIndicator} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {list} from "./MusicList";
 import firestore from '@react-native-firebase/firestore';
@@ -8,7 +8,7 @@ import Toast from 'react-native-simple-toast'
 
 const RecommendationScreen = ({navigation})=>{
 
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
     const [music, setMusic] = useState([])
 
     useEffect(() => {
@@ -44,7 +44,7 @@ const RecommendationScreen = ({navigation})=>{
                     
             </View>
             <View style={myStyles.searchBarView}>
-                    <TouchableOpacity style={myStyles.searchIcon} onPress={Toast.show("List not big enough to use search.", Toast.SHORT)}>
+                    <TouchableOpacity style={myStyles.searchIcon} onPress={()=>Toast.show("List not big enough to use search.", Toast.SHORT)}>
                         <Icon name='search' size={35} color= "grey"/>
                     </TouchableOpacity>
                     <TextInput style={myStyles.searchBar} placeholder='Search for artists, songs and genre' placeholderTextColor={"grey"}></TextInput>
@@ -52,15 +52,18 @@ const RecommendationScreen = ({navigation})=>{
 
             <View style={myStyles.content}>
             
+            {isLoading ? (
+                <ActivityIndicator size="large" color="#FFA500"/>
+            ) : (
                 <FlatList
                     style={myStyles.FLView}
                     data={music}          
                     showsVerticalScrollIndicator={false}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.key}
                     renderItem={({item})=>(
                         
-                        <TouchableOpacity onPress={Toast.show("Just enjoy the touch ;)", Toast.SHORT)}>
-                        <View key={item.id} style={myStyles.rectView}>
+                        <TouchableOpacity onPress={()=>Toast.show("Just enjoy the touch ;)", Toast.SHORT)}>
+                        <View key={item.key} style={myStyles.rectView}>
                             <View>
                                 <Image style={{width:75, height:75, borderRadius:20}} source={{uri: item.artwork}} />
                             </View>
@@ -109,7 +112,7 @@ const RecommendationScreen = ({navigation})=>{
                     )}      
     
                 />
-            
+            )}
                 <MusicCard/>
 
             </View>

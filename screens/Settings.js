@@ -1,15 +1,16 @@
-import React from 'react';
-
+import React, {useState, useEffect} from 'react';
 import { View , StyleSheet, StatusBar, Image,Text, TouchableOpacity } from 'react-native';
-
 import auth from "@react-native-firebase/auth";
-
+import firebase from '@react-native-firebase/app';
+import firestore from '@react-native-firebase/firestore';
 import Toast from "react-native-simple-toast"
 import Icon from 'react-native-vector-icons/Ionicons'
 import ToggleSwitch from '../Components/ToggleSwitch';
 
 
 const Settings = ({navigation}) => {
+    const [user, setUser] = useState(null);
+    const [name, setName] = useState('')
 
     const handleSignOut = async () => {
         try {
@@ -18,6 +19,25 @@ const Settings = ({navigation}) => {
           console.error('Error signing out:', error);
         }
     };
+
+    useEffect(() => {
+        // Fetch user data from Firebase when the component mounts
+        const fetchUserData = async () => {
+            const currentUser = firebase.auth().currentUser;
+            if (currentUser) {
+                const userDocument = await firestore().collection('users').doc(currentUser.uid).get();
+                setUser(userDocument.data());
+            }
+        };
+        
+        fetchUserData();
+    }, [user]);
+
+    useEffect(() => {
+        if (user) {
+          setName(user.firstName);
+        }
+      }, [user]);
 
     return(
         <View style={styles.container}>
@@ -34,7 +54,7 @@ const Settings = ({navigation}) => {
                 <Image style={styles.img} source={require("../Components/Profile1.png")} />
                 {/* <Image style={styles.img} source={require("./profi1.png")} /> */}
                 <View style={styles.textView}>
-                    <Text style={styles.name}>Obaid</Text>
+                    <Text style={styles.name}>{name}</Text>
                     <Text style={styles.pText}>Edit Profile</Text>
                 </View>
                 <TouchableOpacity style={styles.editArrow} onPress={()=>navigation.push("Edit")}>
@@ -82,7 +102,7 @@ const Settings = ({navigation}) => {
 
             <TouchableOpacity onPress={()=>handleSignOut()}>
                 <Text style={[styles.settingsText,{marginLeft:10,fontSize:22,marginTop:10}]}>Log Out</Text>
-                <Text style={[styles.pText,{marginLeft:40}]}>You are Logged in as Obaid</Text>
+                <Text style={[styles.pText,{marginLeft:40}]}>You are Logged in as {name}</Text>
             </TouchableOpacity>
 
 
