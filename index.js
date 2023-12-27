@@ -17,8 +17,14 @@ import RecommendationScreen from './screens/RecommendationScreen.js';
 import MusicCard from './Components/MusicCard.js';
 import MusicPlayer from './screens/MusicPlayer.js';
 import PopularScreen from './screens/PopularScreen.js';
-
 import TrackPlayer from 'react-native-track-player';
+import { LogBox } from 'react-native';
+
+// Ignore log notifications by message
+LogBox.ignoreLogs(['Warning: ...']);
+
+// Ignore all log notifications
+LogBox.ignoreAllLogs();
 
 
 AppRegistry.registerComponent(appName, () => App);
